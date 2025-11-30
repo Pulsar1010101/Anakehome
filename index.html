@@ -4,22 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ananke Playlist</title>
-    
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
-    
     <script src="https://cdn.tailwindcss.com"></script>
-    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
     <div class="app-layout">
         <nav class="zone-menu">
-            <div class="menu-item active" title="홈"><i data-lucide="home" size="24"></i></div>
-            <div class="menu-item" title="플레이리스트"><i data-lucide="list-music" size="24"></i></div>
-            <div class="menu-item" title="좋아요"><i data-lucide="heart" size="24"></i></div>
+            <div class="menu-item active"><i data-lucide="home"></i></div>
+            <div class="menu-item"><i data-lucide="list-music"></i></div>
+            <div class="menu-item"><i data-lucide="heart"></i></div>
             <div style="flex: 1"></div>
-            <div class="menu-item" title="설정"><i data-lucide="settings" size="24"></i></div>
+            <div class="menu-item"><i data-lucide="settings"></i></div>
         </nav>
 
         <aside class="zone-list">
@@ -29,13 +25,11 @@
 
         <main class="zone-player" id="player-zone">
             <img src="" alt="Album Art" class="album-art-large" id="main-album-art">
-            
             <div class="player-info">
-                <h1 id="main-title" title="YouTube에서 보기">곡을 선택하세요</h1>
+                <h1 id="main-title">곡을 선택하세요</h1>
                 <p id="main-artist">-</p>
                 <div class="hashtag-container" id="main-hashtags"></div>
             </div>
-
             <div class="progress-container">
                 <span id="current-time">0:00</span>
                 <div class="progress-bar-bg" id="progress-bar-bg">
@@ -43,31 +37,22 @@
                 </div>
                 <span id="total-time">0:00</span>
             </div>
-
             <div class="controls">
-                <button class="btn-control" id="btn-shuffle" title="셔플"><i data-lucide="shuffle" size="20"></i></button>
-                <button class="btn-control" id="btn-prev" title="이전 곡"><i data-lucide="skip-back" size="28"></i></button>
-                <button class="btn-control btn-play" id="btn-play-pause" title="재생/일시정지">
-                    <i data-lucide="play" size="28"></i>
-                </button>
-                <button class="btn-control" id="btn-next" title="다음 곡"><i data-lucide="skip-forward" size="28"></i></button>
-                
-                <button class="btn-control" id="btn-repeat" title="반복 모드 변경">
-                    <i data-lucide="repeat" size="20"></i>
-                </button>
+                <button class="btn-control" id="btn-shuffle"><i data-lucide="shuffle" size="20"></i></button>
+                <button class="btn-control" id="btn-prev"><i data-lucide="skip-back" size="28"></i></button>
+                <button class="btn-control btn-play" id="btn-play-pause"><i data-lucide="play" size="28"></i></button>
+                <button class="btn-control" id="btn-next"><i data-lucide="skip-forward" size="28"></i></button>
+                <button class="btn-control" id="btn-repeat"><i data-lucide="repeat" size="20"></i></button>
             </div>
         </main>
 
         <aside class="zone-lyrics">
             <div class="lyrics-title">Lyrics / Info</div>
-            <div id="lyrics-content" style="color: #666; font-size: 0.9rem;">
-                곡을 선택해주세요.
-            </div>
+            <div id="lyrics-content">곡을 선택해주세요.</div>
         </aside>
     </div>
 
     <div id="youtube-player-container"></div>
-
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 
     <script type="module" src="script.js"></script>
