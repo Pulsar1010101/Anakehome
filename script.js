@@ -1,3 +1,5 @@
+// script.js
+// 주의: './data.js' 처럼 확장자까지 정확히 적어야 합니다.
 import { playlistData } from './data.js';
 
 let currentSongIndex = 0;
@@ -7,23 +9,22 @@ let progressInterval = null;
 let playerReady = false;
 let isRepeatOne = false;
 
-// YouTube API 로드
+// YouTube IFrame API 로드
 const tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
-// 중요: 모듈 환경에서는 전역 함수가 숨겨지므로 window 객체에 직접 할당해야 함
+// 전역 함수 할당
 window.onYouTubeIframeAPIReady = function() {
     if(playlistData.length > 0) {
         playlistData.forEach(item => {
             let videoId = extractYouTubeId(item.link);
             item.youtubeId = videoId;
-            
             item.cover = videoId 
                 ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.title)}&background=333&color=fff`;
-
+            
             if (!item.hashtags) {
                 item.hashtags = [];
                 if (item.artist) {
@@ -32,28 +33,23 @@ window.onYouTubeIframeAPIReady = function() {
                 }
             }
         });
-        
+
         player = new YT.Player('youtube-player-container', {
             height: '203',
             width: '360',
             videoId: playlistData[0].youtubeId,
-            playerVars: {
-                'playsinline': 1, 'controls': 0, 'disablekb': 1, 'fs': 0, 'rel': 0, 'autoplay': 0
-            },
+            playerVars: { 'playsinline': 1, 'controls': 0, 'disablekb': 1, 'fs': 0, 'rel': 0, 'autoplay': 0 },
             events: {
                 'onReady': onPlayerReady,
                 'onStateChange': onPlayerStateChange
             }
         });
-
         renderPlaylist();
         loadSongUI(0);
     }
 }
 
-function onPlayerReady(event) {
-    playerReady = true;
-}
+function onPlayerReady(event) { playerReady = true; }
 
 function onPlayerStateChange(event) {
     if (event.data == YT.PlayerState.PLAYING) {
@@ -86,7 +82,6 @@ function extractYouTubeId(url) {
 function renderPlaylist() {
     const container = document.getElementById('playlist-container');
     container.innerHTML = '';
-    
     playlistData.forEach((song, index) => {
         const div = document.createElement('div');
         div.className = `song-item ${index === currentSongIndex ? 'active' : ''}`;
@@ -105,16 +100,13 @@ function renderPlaylist() {
 function loadSongUI(index) {
     if(!playlistData[index]) return;
     const song = playlistData[index];
-    
     document.getElementById('main-album-art').src = song.cover;
-    
     const titleEl = document.getElementById('main-title');
     titleEl.innerText = song.title;
     titleEl.onclick = () => window.open(song.link, '_blank');
-    
     document.getElementById('main-artist').innerText = song.artist || 'Unknown Artist';
     document.getElementById('player-zone').style.setProperty('--player-bg-image', `url('${song.cover}')`);
-
+    
     const tagBox = document.getElementById('main-hashtags');
     tagBox.innerHTML = song.hashtags.map(t => `<span class="hashtag">${t}</span>`).join('');
 
@@ -126,21 +118,11 @@ function loadSongUI(index) {
     if (song.lyrics && song.lyrics.trim() !== "") {
         lyricsContent.innerHTML = song.lyrics;
         lyricsContent.style.display = 'block'; 
-        lyricsContent.style.textAlign = 'center';
     } else {
+        lyricsContent.innerHTML = `<div style="margin-top:2rem; font-size:0.85rem;">등록된 가사가 없습니다.</div>`;
         lyricsContent.style.display = 'flex';
         lyricsContent.style.flexDirection = 'column';
         lyricsContent.style.justifyContent = 'center';
-        lyricsContent.style.textAlign = 'center';
-        lyricsContent.innerHTML = `
-            <div>
-                <strong>${song.title}</strong><br>
-                <span style="color: #888;">${song.artist || 'Unknown Artist'}</span>
-            </div>
-            <div style="margin-top: 2rem; color: #666; font-size: 0.85rem;">
-                등록된 가사가 없습니다.<br>코드를 수정하여 가사를 추가해주세요.
-            </div>
-        `;
     }
 }
 
@@ -201,9 +183,7 @@ function startProgressLoop() {
     }, 500);
 }
 
-function stopProgressLoop() {
-    if(progressInterval) clearInterval(progressInterval);
-}
+function stopProgressLoop() { if(progressInterval) clearInterval(progressInterval); }
 
 function formatTime(seconds) {
     const m = Math.floor(seconds / 60);
@@ -213,24 +193,20 @@ function formatTime(seconds) {
 
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 100);
-
     document.getElementById('btn-play-pause').addEventListener('click', togglePlay);
     document.getElementById('btn-next').addEventListener('click', playNext);
     document.getElementById('btn-prev').addEventListener('click', playPrev);
-    
+    document.getElementById('btn-shuffle').addEventListener('click', () => {
+        playSpecificSong(Math.floor(Math.random() * playlistData.length));
+    });
+    document.getElementById('btn-repeat').addEventListener('click', () => {
+        isRepeatOne = !isRepeatOne;
+        updateRepeatButton();
+    });
     document.getElementById('progress-bar-bg').addEventListener('click', (e) => {
         if(!player || !playerReady) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
         player.seekTo(player.getDuration() * percent, true);
-    });
-
-    document.getElementById('btn-shuffle').addEventListener('click', () => {
-        playSpecificSong(Math.floor(Math.random() * playlistData.length));
-    });
-
-    document.getElementById('btn-repeat').addEventListener('click', () => {
-        isRepeatOne = !isRepeatOne;
-        updateRepeatButton();
     });
 });
