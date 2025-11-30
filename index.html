@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ananke Playlist</title>
+    <title>Ananke Home</title>
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="style.css">
@@ -25,11 +25,16 @@
 
         <main class="zone-player" id="player-zone">
             <img src="" alt="Album Art" class="album-art-large" id="main-album-art">
+            
             <div class="player-info">
                 <h1 id="main-title">곡을 선택하세요</h1>
                 <p id="main-artist">-</p>
+                
                 <div class="hashtag-container" id="main-hashtags"></div>
+
+                <p id="main-comment" class="player-comment"></p> 
             </div>
+
             <div class="progress-container">
                 <span id="current-time">0:00</span>
                 <div class="progress-bar-bg" id="progress-bar-bg">
@@ -37,6 +42,7 @@
                 </div>
                 <span id="total-time">0:00</span>
             </div>
+
             <div class="controls">
                 <button class="btn-control" id="btn-shuffle"><i data-lucide="shuffle" size="20"></i></button>
                 <button class="btn-control" id="btn-prev"><i data-lucide="skip-back" size="28"></i></button>
@@ -54,7 +60,6 @@
 
     <div id="youtube-player-container"></div>
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
-
     <script type="module" src="script.js"></script>
 </body>
 </html>
