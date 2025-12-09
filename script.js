@@ -1,6 +1,31 @@
 import { playlistData } from './data.js';
 import { characterData } from './character.js';
 
+// 컴포넌트 로더
+async function loadComponent(sectionId, componentPath) {
+    try {
+        const response = await fetch(componentPath);
+        const html = await response.text();
+        document.getElementById(sectionId).innerHTML = html;
+    } catch (error) {
+        console.error(`Failed to load ${componentPath}:`, error);
+    }
+}
+
+// 초기 컴포넌트 로드
+async function loadAllComponents() {
+    await Promise.all([
+        loadComponent('section-dashboard', 'components/dashboard.html'),
+        loadComponent('section-playlist', 'components/playlist.html'),
+        loadComponent('section-guide', 'components/about.html')
+    ]);
+
+    // 컴포넌트 로드 후 아이콘 초기화
+    if (typeof lucide !== 'undefined') {
+        lucide.createIcons();
+    }
+}
+
 let currentSongIndex = 0;
 let isPlaying = false;
 let player = null;
@@ -200,7 +225,10 @@ function formatTime(seconds) {
     return `${m}:${s < 10 ? '0' + s : s}`;
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    // 컴포넌트 로드
+    await loadAllComponents();
+
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 100);
 
     // 캐릭터 프로필 렌더링

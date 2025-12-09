@@ -1,0 +1,105 @@
+/* About 섹션 */
+#section-guide {
+    flex-direction: column;
+}
+
+.guide-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 3rem;
+    background-color: var(--bg-color);
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.guide-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.guide-header h1 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.guide-content {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+.guide-section {
+    background-color: var(--surface-color);
+    border: 1px solid #2a2a2a;
+    border-radius: 12px;
+    padding: 2rem;
+}
+
+.guide-section h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: var(--highlight-color);
+}
+
+.guide-section p {
+    color: #ccc;
+    line-height: 1.8;
+    margin-bottom: 1rem;
+}
+
+.guide-section ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.guide-section li {
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+    color: #aaa;
+    line-height: 1.6;
+}
+
+.guide-section li::before {
+    content: '•';
+    position: absolute;
+    left: 0;
+    color: var(--highlight-color);
+    font-weight: bold;
+}
+
+/* About 링크 */
+.about-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.about-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.25rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    color: white;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.about-link:hover {
+    background-color: rgba(59, 130, 246, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 반응형 - About */
+@media (max-width: 768px) {
+    .guide-container {
+        padding: 1.5rem;
+    }
+}
