@@ -1,6 +1,9 @@
 import { playlistData } from './data.js';
-import { characterData } from './character.js';
+import { characterData, characterProfiles } from './character.js';
 import { ownerData } from './owner.js';
+
+// 현재 선택된 나이
+let currentAge = 11;
 
 // 컴포넌트 로더
 async function loadComponent(sectionId, componentPath) {
@@ -238,6 +241,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 개인 프로필 렌더링
     renderOwnerProfile();
 
+    // 나이 선택 버튼 이벤트 리스너
+    const ageBtns = document.querySelectorAll('.age-btn');
+    ageBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const selectedAge = parseInt(btn.getAttribute('data-age'));
+            currentAge = selectedAge;
+
+            // 버튼 활성화 상태 변경
+            ageBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // 프로필 다시 렌더링
+            renderCharacterProfile(selectedAge);
+        });
+    });
+
     // 섹션 전환 기능
     const menuItems = document.querySelectorAll('.menu-item[data-section]');
     menuItems.forEach(item => {
@@ -293,8 +312,8 @@ function switchSection(sectionName) {
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
 }
 
-function renderCharacterProfile() {
-    const char = characterData;
+function renderCharacterProfile(age = currentAge) {
+    const char = characterProfiles[age];
 
     // 프로필 헤더
     document.getElementById('char-main-img').src = char.profile.image;
