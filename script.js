@@ -1,4 +1,5 @@
 import { playlistData } from './data.js';
+import { characterData } from './character.js';
 
 let currentSongIndex = 0;
 let isPlaying = false;
@@ -202,6 +203,9 @@ function formatTime(seconds) {
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 100);
 
+    // 캐릭터 프로필 렌더링
+    renderCharacterProfile();
+
     // 섹션 전환 기능
     const menuItems = document.querySelectorAll('.menu-item[data-section]');
     menuItems.forEach(item => {
@@ -252,6 +256,69 @@ function switchSection(sectionName) {
     if (targetMenuItem) {
         targetMenuItem.classList.add('active');
     }
+
+    // 아이콘 재렌더링
+    setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
+}
+
+function renderCharacterProfile() {
+    const char = characterData;
+
+    // 프로필 헤더
+    document.getElementById('char-main-img').src = char.profile.image;
+    document.getElementById('char-name').textContent = char.profile.name;
+    document.getElementById('char-name-en').textContent = char.profile.nameEn;
+    document.getElementById('char-quote').textContent = `"${char.profile.quote}"`;
+    document.getElementById('char-tags').innerHTML = char.profile.tags.map(tag =>
+        `<span class="profile-tag">${tag}</span>`
+    ).join('');
+
+    // 기본 정보
+    document.getElementById('basic-info-grid').innerHTML = char.basicInfo.map(info =>
+        `<div class="info-item">
+            <span class="info-label">${info.label}</span>
+            <span class="info-value">${info.value}</span>
+        </div>`
+    ).join('');
+
+    // 성격 & 특징
+    document.getElementById('personality-desc').textContent = char.personality.description;
+    document.getElementById('personality-traits').innerHTML = char.personality.traits.map(trait =>
+        `<li>${trait}</li>`
+    ).join('');
+
+    // 배경 스토리
+    document.getElementById('backstory-content').innerHTML = char.backstory.map(paragraph =>
+        `<p>${paragraph}</p>`
+    ).join('');
+
+    // 갤러리
+    document.getElementById('gallery-grid').innerHTML = char.gallery.map(item =>
+        `<div class="gallery-item">
+            <img src="${item.image}" alt="${item.alt}">
+        </div>`
+    ).join('');
+
+    // 모티프
+    document.getElementById('motif-grid').innerHTML = char.motifs.map(motif =>
+        `<div class="motif-item">
+            <div class="motif-image">
+                <img src="${motif.image}" alt="${motif.title}">
+            </div>
+            <div class="motif-info">
+                <h3>${motif.title}</h3>
+                <p>${motif.description}</p>
+            </div>
+        </div>`
+    ).join('');
+
+    // 관련 링크
+    document.getElementById('profile-links').innerHTML = char.links.map(link =>
+        `<a href="${link.url}" class="profile-link">
+            <i data-lucide="${link.icon}"></i>
+            <span>${link.text}</span>
+        </a>`
+    ).join('');
 
     // 아이콘 재렌더링
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);

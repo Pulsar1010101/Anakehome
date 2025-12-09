@@ -44,103 +44,34 @@
                 <div class="profile-content">
                     <div class="profile-section">
                         <h2><i data-lucide="user"></i> 기본 정보</h2>
-                        <div class="info-grid">
-                            <div class="info-item">
-                                <span class="info-label">이름</span>
-                                <span class="info-value">캐릭터 이름</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">나이</span>
-                                <span class="info-value">??세</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">성별</span>
-                                <span class="info-value">?</span>
-                            </div>
-                            <div class="info-item">
-                                <span class="info-label">종족</span>
-                                <span class="info-value">인간</span>
-                            </div>
-                        </div>
+                        <div class="info-grid" id="basic-info-grid"></div>
                     </div>
 
                     <div class="profile-section">
                         <h2><i data-lucide="heart"></i> 성격 & 특징</h2>
-                        <p>캐릭터의 성격과 특징에 대한 설명을 작성합니다.</p>
-                        <ul>
-                            <li>특징 1</li>
-                            <li>특징 2</li>
-                            <li>특징 3</li>
-                        </ul>
+                        <p id="personality-desc"></p>
+                        <ul id="personality-traits"></ul>
                     </div>
 
                     <div class="profile-section">
                         <h2><i data-lucide="book-open"></i> 배경 스토리</h2>
-                        <p>캐릭터의 배경 스토리를 자유롭게 작성합니다.</p>
-                        <p>여러 문단으로 나누어 작성할 수 있습니다.</p>
+                        <div id="backstory-content"></div>
                     </div>
 
                     <div class="profile-section">
                         <h2><i data-lucide="image"></i> 갤러리</h2>
-                        <div class="profile-gallery">
-                            <div class="gallery-item">
-                                <img src="https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=400" alt="이미지 1">
-                            </div>
-                            <div class="gallery-item">
-                                <img src="https://images.unsplash.com/photo-1511379938547-c1f69419868d?w=400" alt="이미지 2">
-                            </div>
-                            <div class="gallery-item">
-                                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=400" alt="이미지 3">
-                            </div>
-                        </div>
+                        <div class="profile-gallery" id="gallery-grid"></div>
                     </div>
 
                     <div class="profile-section">
                         <h2><i data-lucide="sparkles"></i> 모티프</h2>
                         <p>캐릭터 디자인에 영감을 준 요소들입니다.</p>
-                        <div class="motif-grid">
-                            <div class="motif-item">
-                                <div class="motif-image">
-                                    <img src="https://images.unsplash.com/photo-1578632767115-351597cf2477?w=400" alt="모티프 1">
-                                </div>
-                                <div class="motif-info">
-                                    <h3>모티프 제목</h3>
-                                    <p>간단한 설명이나 어떤 부분에서 영감을 받았는지 작성</p>
-                                </div>
-                            </div>
-                            <div class="motif-item">
-                                <div class="motif-image">
-                                    <img src="https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?w=400" alt="모티프 2">
-                                </div>
-                                <div class="motif-info">
-                                    <h3>참고 작품</h3>
-                                    <p>영향을 받은 작품이나 컨셉</p>
-                                </div>
-                            </div>
-                            <div class="motif-item">
-                                <div class="motif-image">
-                                    <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?w=400" alt="모티프 3">
-                                </div>
-                                <div class="motif-info">
-                                    <h3>디자인 레퍼런스</h3>
-                                    <p>색상이나 의상 등 디자인 참고 자료</p>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="motif-grid" id="motif-grid"></div>
                     </div>
 
                     <div class="profile-section">
                         <h2><i data-lucide="link"></i> 관련 링크</h2>
-                        <div class="profile-links">
-                            <a href="#" class="profile-link">
-                                <i data-lucide="external-link"></i>
-                                <span>설정집</span>
-                            </a>
-                            <a href="#" class="profile-link">
-                                <i data-lucide="external-link"></i>
-                                <span>관련 작품</span>
-                            </a>
-                        </div>
+                        <div class="profile-links" id="profile-links"></div>
                     </div>
                 </div>
             </div>
