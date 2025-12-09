@@ -1,5 +1,5 @@
 /* About 섹션 */
-#section-guide {
+#section-guide.active {
     flex-direction: column;
     align-items: center;
     justify-content: center;
