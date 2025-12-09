@@ -1,5 +1,5 @@
 /* 플레이리스트 섹션 레이아웃 */
-#section-playlist {
+#section-playlist.active {
     display: grid;
     grid-template-columns: 280px minmax(320px, 1fr) 300px;
 }
