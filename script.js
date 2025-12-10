@@ -344,7 +344,15 @@ function renderCharacterProfile(age = currentAge) {
 
     // 프로필 헤더
     document.getElementById('char-main-img').src = char.profile.image;
-    document.getElementById('char-catchphrase').textContent = char.profile.catchphrase;
+
+    // 캐치프레이즈 3단 구조 렌더링
+    const catchphraseEl = document.getElementById('char-catchphrase');
+    catchphraseEl.innerHTML = `
+        <div class="catchphrase-top">${char.profile.catchphrase.top}</div>
+        <div class="catchphrase-main">${char.profile.catchphrase.main}</div>
+        <div class="catchphrase-bottom">${char.profile.catchphrase.bottom}</div>
+    `;
+
     document.getElementById('char-name').textContent = char.profile.name;
     document.getElementById('char-name-en').textContent = char.profile.nameEn;
     document.getElementById('char-quote').textContent = `"${char.profile.quote}"`;
@@ -361,6 +369,14 @@ function renderCharacterProfile(age = currentAge) {
         `<div class="info-item">
             <span class="info-label">${info.label}</span>
             <span class="info-value">${info.value}</span>
+        </div>`
+    ).join('');
+
+    // 탄생 정보
+    document.getElementById('birth-info-table').innerHTML = char.birthInfo.map(info =>
+        `<div class="detailed-info-row">
+            <div class="detailed-info-label">${info.label}</div>
+            <div class="detailed-info-value">${info.value}</div>
         </div>`
     ).join('');
 
@@ -387,7 +403,6 @@ function renderCharacterProfile(age = currentAge) {
     document.getElementById('relationships-grid').innerHTML = char.relationships.map(rel =>
         `<div class="relationship-item">
             <div class="relationship-name">${rel.name}</div>
-            <div class="relationship-description">${rel.description}</div>
         </div>`
     ).join('');
 
