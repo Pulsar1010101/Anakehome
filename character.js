@@ -4,6 +4,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Morrison+Bell+Liar&background=FFD800&color=000&size=400",
+            catchphrase: "제 1명제 - 定 모든 미래는 불변한다.",
             name: "모리슨 벨 라이어 (11살)",
             nameEn: "Morrison Bell Liar - Age 11",
             quote: "데자뷔....",
@@ -14,6 +15,10 @@ export const characterProfiles = {
         basicInfo: [
             { label: "이름", value: "모리슨 벨 라이어" },
             { label: "생일", value: "11월 29일" },
+            { label: "탄생화", value: "바카리스" },
+            { label: "탄생석", value: "알렉산드라이트 토르마린" },
+            { label: "탄생목", value: "사시나무" },
+            { label: "탄생색", value: "블록 레드" },
             { label: "나이", value: "11세 (1학년)" },
             { label: "키 / 몸무게", value: "130cm / 25kg" },
             { label: "기숙사", value: "후플푸프" },
@@ -24,13 +29,11 @@ export const characterProfiles = {
 
         // 성격 & 특징
         personality: {
-            description: "무신경하고 무반응, 무감각한 성격. 제 1명제 - 定 모든 미래는 불변한다.",
+            description: "무신경하고 무반응, 무감각한 성격.",
             traits: [
                 "무신경하고 반응이 없는 성격",
                 "감정 표현이 거의 없음",
-                "데자뷔를 자주 경험하는 듯한 행동",
-                "탄생화: 바카리스 | 탄생석: 알렉산드라이트 토르마린",
-                "탄생목: 사시나무 | 탄생색: 블록 레드"
+                "데자뷔를 자주 경험하는 듯한 행동"
             ]
         },
 
@@ -90,6 +93,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Morrison+Bell+Liar&background=FBEFEF&color=000&size=400",
+            catchphrase: "제 2반론 - 反 인간은 운명조차 변화시킬수 있다.",
             name: "모리슨 벨 라이어 (17살)",
             nameEn: "Morrison Bell Liar - Age 17",
             quote: "친애하는 나의....",
@@ -100,6 +104,10 @@ export const characterProfiles = {
         basicInfo: [
             { label: "이름", value: "모리슨 벨 라이어" },
             { label: "생일", value: "11월 29일" },
+            { label: "탄생화", value: "바카리스" },
+            { label: "탄생석", value: "알렉산드라이트 토르마린" },
+            { label: "탄생목", value: "사시나무" },
+            { label: "탄생색", value: "블록 레드" },
             { label: "나이", value: "17세 (7학년)" },
             { label: "키 / 몸무게", value: "147cm / 45kg" },
             { label: "기숙사", value: "후플푸프" },
@@ -110,13 +118,11 @@ export const characterProfiles = {
 
         // 성격 & 특징
         personality: {
-            description: "낭만적이고 다정하며 상냥한 성격. 제 2반론 - 反 인간은 운명조차 변화시킬수 있다.",
+            description: "낭만적이고 다정하며 상냥한 성격.",
             traits: [
                 "낭만적이고 감성적인 성격",
                 "다정하고 상냥한 태도로 사람들을 대함",
-                "운명을 바꿀 수 있다는 신념을 가짐",
-                "탄생화: 바카리스 | 탄생석: 알렉산드라이트 토르마린",
-                "탄생목: 사시나무 | 탄생색: 블록 레드"
+                "운명을 바꿀 수 있다는 신념을 가짐"
             ]
         },
 
@@ -176,6 +182,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Ananke+Aiwass+Leadman&background=B2B0E8&color=fff&size=400",
+            catchphrase: "제 3진리 - 合 전도자가 이르되 헛되고 헛되며 헛되고 헛되니 모든 것이 헛되도다.",
             name: "아난케 에이와스 리드맨 (29살)",
             nameEn: "Ananke Aiwass Leadman - Age 29",
             quote: "나중에 못 볼지도 모르니까 미리 인사하자. 좋은 아침, 좋은 저녁, 그리고 좋은 점심.",
@@ -186,6 +193,10 @@ export const characterProfiles = {
         basicInfo: [
             { label: "이름", value: "아난케 에이와스 리드맨" },
             { label: "생일", value: "11월 29일" },
+            { label: "탄생화", value: "바카리스" },
+            { label: "탄생석", value: "알렉산드라이트 토르마린" },
+            { label: "탄생목", value: "사시나무" },
+            { label: "탄생색", value: "블록 레드" },
             { label: "나이", value: "29세 (성인)" },
             { label: "키 / 몸무게", value: "149cm / 45kg" },
             { label: "진영", value: "불사조 기사단" },
@@ -196,13 +207,11 @@ export const characterProfiles = {
 
         // 성격 & 특징
         personality: {
-            description: "허무하고 무기력하며 상실감에 젖은 성격. 제 3진리 - 合 전도자가 이르되 헛되고 헛되며 헛되고 헛되니 모든 것이 헛되도다.",
+            description: "허무하고 무기력하며 상실감에 젖은 성격.",
             traits: [
                 "깊은 허무함과 무기력에 빠진 상태",
                 "많은 것을 잃고 상실감을 느낌",
-                "불사조 기사단에서 활동하며 마법 세계를 지킴",
-                "탄생화: 바카리스 | 탄생석: 알렉산드라이트 토르마린",
-                "탄생목: 사시나무 | 탄생색: 블록 레드"
+                "불사조 기사단에서 활동하며 마법 세계를 지킴"
             ]
         },
 
