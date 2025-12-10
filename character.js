@@ -4,6 +4,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Morrison+Bell+Liar&background=FFD800&color=000&size=400",
+            themeColor: "#FFD800",
             catchphrase: {
                 top: "제 1 명제",
                 main: "「 定 」",
@@ -15,14 +16,18 @@ export const characterProfiles = {
             tags: ["#무신경", "#무반응", "#무감각"]
         },
 
-        // 기본 정보
-        basicInfo: [
-            { label: "이름", value: "모리슨 벨 라이어" },
+        // 탄생 정보
+        birthInfo: [
             { label: "생일", value: "11월 29일" },
             { label: "탄생화", value: "바카리스" },
             { label: "탄생석", value: "알렉산드라이트 토르마린" },
             { label: "탄생목", value: "사시나무" },
-            { label: "탄생색", value: "블록 레드" },
+            { label: "탄생색", value: "블록 레드" }
+        ],
+
+        // 기본 정보
+        basicInfo: [
+            { label: "이름", value: "모리슨 벨 라이어" },
             { label: "나이", value: "11세 (1학년)" },
             { label: "키 / 몸무게", value: "130cm / 25kg" },
             { label: "기숙사", value: "후플푸프" },
@@ -50,11 +55,7 @@ export const characterProfiles = {
         ],
 
         // 관계
-        relationships: [
-            { name: "후플푸프 기숙사", description: "성실함과 헌신을 중시하는 후플푸프에 속해 있습니다." },
-            { name: "동급생들", description: "무반응한 태도로 인해 거리를 두지만, 나쁘지 않은 관계를 유지합니다." },
-            { name: "마법사 가족", description: "머글 태생으로 마법 세계에 처음 발을 들였습니다." }
-        ],
+        relationships: [],
 
         // 배경 음악
         bgMusic: {
@@ -97,6 +98,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Morrison+Bell+Liar&background=FBEFEF&color=000&size=400",
+            themeColor: "#FBEFEF",
             catchphrase: {
                 top: "제 2 반론",
                 main: "「 反 」",
@@ -108,14 +110,18 @@ export const characterProfiles = {
             tags: ["#낭만적인", "#다정한", "#상냥한"]
         },
 
-        // 기본 정보
-        basicInfo: [
-            { label: "이름", value: "모리슨 벨 라이어" },
+        // 탄생 정보
+        birthInfo: [
             { label: "생일", value: "11월 29일" },
             { label: "탄생화", value: "바카리스" },
             { label: "탄생석", value: "알렉산드라이트 토르마린" },
             { label: "탄생목", value: "사시나무" },
-            { label: "탄생색", value: "블록 레드" },
+            { label: "탄생색", value: "블록 레드" }
+        ],
+
+        // 기본 정보
+        basicInfo: [
+            { label: "이름", value: "모리슨 벨 라이어" },
             { label: "나이", value: "17세 (7학년)" },
             { label: "키 / 몸무게", value: "147cm / 45kg" },
             { label: "기숙사", value: "후플푸프" },
@@ -144,9 +150,9 @@ export const characterProfiles = {
 
         // 관계
         relationships: [
-            { name: "엘로웬 모턴", description: "과거의 친구. 함께했던 시간들이 있었습니다." },
-            { name: "아멜리아 레이젠", description: "티타임 메이트. 함께 차를 마시며 이야기를 나눕니다." },
-            { name: "시에라 벤더미어", description: "퀴디치 메이트. 함께 하늘을 나는 동료입니다." }
+            { name: "엘로웬 모턴 ( 친구 (구) )" },
+            { name: "아멜리아 레이젠 ( 티타임 메이트 )" },
+            { name: "시에라 벤더미어 ( 퀴디치 메이트 )" }
         ],
 
         // 배경 음악
@@ -190,6 +196,7 @@ export const characterProfiles = {
         // 프로필 헤더
         profile: {
             image: "https://ui-avatars.com/api/?name=Ananke+Aiwass+Leadman&background=B2B0E8&color=fff&size=400",
+            themeColor: "#B2B0E8",
             catchphrase: {
                 top: "제 3 진리",
                 main: "「 合 」",
@@ -201,14 +208,18 @@ export const characterProfiles = {
             tags: ["#허무", "#무기력", "#상실"]
         },
 
-        // 기본 정보
-        basicInfo: [
-            { label: "이름", value: "아난케 에이와스 리드맨" },
+        // 탄생 정보
+        birthInfo: [
             { label: "생일", value: "11월 29일" },
             { label: "탄생화", value: "바카리스" },
             { label: "탄생석", value: "알렉산드라이트 토르마린" },
             { label: "탄생목", value: "사시나무" },
-            { label: "탄생색", value: "블록 레드" },
+            { label: "탄생색", value: "블록 레드" }
+        ],
+
+        // 기본 정보
+        basicInfo: [
+            { label: "이름", value: "아난케 에이와스 리드맨" },
             { label: "나이", value: "29세 (성인)" },
             { label: "키 / 몸무게", value: "149cm / 45kg" },
             { label: "진영", value: "불사조 기사단" },
@@ -237,11 +248,11 @@ export const characterProfiles = {
 
         // 관계
         relationships: [
-            { name: "아이라 하이델베르크", description: "함께 불사조 기사단에서 활동하는 동료입니다." },
-            { name: "에이미 패터슨", description: "소중한 인연 중 하나입니다." },
-            { name: "타테우스 룩소스 페스틸란스", description: "복잡한 관계를 맺고 있습니다." },
-            { name: "니콜라스 볼트", description: "함께 싸워온 동료입니다." },
-            { name: "루카스 폰 아웃포스트", description: "신뢰하는 사이입니다." }
+            { name: "아이라 하이델베르크" },
+            { name: "에이미 패터슨" },
+            { name: "타테우스 룩소스 페스틸란스" },
+            { name: "니콜라스 볼트" },
+            { name: "루카스 폰 아웃포스트" }
         ],
 
         // 배경 음악

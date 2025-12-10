@@ -372,6 +372,14 @@ function renderCharacterProfile(age = currentAge) {
         </div>`
     ).join('');
 
+    // 탄생 정보
+    document.getElementById('birth-info-table').innerHTML = char.birthInfo.map(info =>
+        `<div class="detailed-info-row">
+            <div class="detailed-info-label">${info.label}</div>
+            <div class="detailed-info-value">${info.value}</div>
+        </div>`
+    ).join('');
+
     // 상세 정보 (아래 테이블에 표시)
     document.getElementById('detailed-info-table').innerHTML = detailedInfo.map(info =>
         `<div class="detailed-info-row">
@@ -395,7 +403,6 @@ function renderCharacterProfile(age = currentAge) {
     document.getElementById('relationships-grid').innerHTML = char.relationships.map(rel =>
         `<div class="relationship-item">
             <div class="relationship-name">${rel.name}</div>
-            <div class="relationship-description">${rel.description}</div>
         </div>`
     ).join('');
 
