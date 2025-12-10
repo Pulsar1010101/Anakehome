@@ -40,6 +40,11 @@ let playerReady = false;
 let isRepeatOne = false;
 let recentPlays = [];
 
+// 백그라운드 음악 플레이어
+let bgPlayers = {};
+let currentBgPlayer = null;
+let bgPlayersReady = {};
+
 const tag = document.createElement('script');
 tag.src = "https://www.youtube.com/iframe_api";
 const firstScriptTag = document.getElementsByTagName('script')[0];
@@ -50,7 +55,7 @@ window.onYouTubeIframeAPIReady = function() {
         playlistData.forEach(item => {
             let videoId = extractYouTubeId(item.link);
             item.youtubeId = videoId;
-            item.cover = videoId 
+            item.cover = videoId
                 ? `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`
                 : `https://ui-avatars.com/api/?name=${encodeURIComponent(item.title)}&background=333&color=fff`;
         });
@@ -68,6 +73,13 @@ window.onYouTubeIframeAPIReady = function() {
         renderPlaylist();
         loadSongUI(0);
     }
+
+    // 백그라운드 음악 플레이어 초기화
+    setTimeout(() => {
+        initBackgroundPlayers();
+        // 대시보드가 기본 활성화되어 있으므로 배경 음악 재생
+        playBackgroundMusic('dashboard');
+    }, 1000);
 }
 
 function onPlayerReady(event) { playerReady = true; }
@@ -259,6 +271,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // 프로필 다시 렌더링
             renderCharacterProfile(selectedAge);
+
+            // 배경 음악 업데이트
+            updateDashboardBgMusic(selectedAge);
         });
     });
 
@@ -313,6 +328,13 @@ function switchSection(sectionName) {
         targetMenuItem.classList.add('active');
     }
 
+    // 배경 음악 재생 (playlist와 motif 섹션은 배경 음악 없음)
+    if (sectionName === 'dashboard' || sectionName === 'guide') {
+        playBackgroundMusic(sectionName);
+    } else {
+        stopAllBackgroundMusic();
+    }
+
     // 아이콘 재렌더링
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
 }
@@ -346,6 +368,14 @@ function renderCharacterProfile(age = currentAge) {
     // 배경 스토리
     document.getElementById('backstory-content').innerHTML = char.backstory.map(paragraph =>
         `<p>${paragraph}</p>`
+    ).join('');
+
+    // 관계
+    document.getElementById('relationships-grid').innerHTML = char.relationships.map(rel =>
+        `<div class="relationship-item">
+            <div class="relationship-name">${rel.name}</div>
+            <div class="relationship-description">${rel.description}</div>
+        </div>`
     ).join('');
 
     // 갤러리
@@ -426,6 +456,98 @@ function renderOwnerProfile() {
 
     // 아이콘 재렌더링
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
+}
+
+// 백그라운드 음악 플레이어 초기화
+function initBackgroundPlayers() {
+    // 대시보드 (현재 나이에 따라 동적으로 변경)
+    const char = characterProfiles[currentAge];
+    if (char.bgMusic && char.bgMusic.youtubeId) {
+        bgPlayers['dashboard'] = new YT.Player('bg-player-dashboard', {
+            height: '0',
+            width: '0',
+            videoId: char.bgMusic.youtubeId,
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                loop: 1,
+                playlist: char.bgMusic.youtubeId
+            },
+            events: {
+                onReady: (event) => {
+                    bgPlayersReady['dashboard'] = true;
+                    event.target.setVolume(20); // 음량 20%
+                }
+            }
+        });
+    }
+
+    // 오너 섹션
+    if (ownerData.bgMusic && ownerData.bgMusic.youtubeId) {
+        bgPlayers['guide'] = new YT.Player('bg-player-guide', {
+            height: '0',
+            width: '0',
+            videoId: ownerData.bgMusic.youtubeId,
+            playerVars: {
+                autoplay: 0,
+                controls: 0,
+                loop: 1,
+                playlist: ownerData.bgMusic.youtubeId
+            },
+            events: {
+                onReady: (event) => {
+                    bgPlayersReady['guide'] = true;
+                    event.target.setVolume(20); // 음량 20%
+                }
+            }
+        });
+    }
+}
+
+// 백그라운드 음악 재생
+function playBackgroundMusic(sectionName) {
+    // 모든 배경 음악 정지
+    stopAllBackgroundMusic();
+
+    // 해당 섹션의 배경 음악 재생
+    if (bgPlayers[sectionName] && bgPlayersReady[sectionName]) {
+        bgPlayers[sectionName].playVideo();
+        currentBgPlayer = sectionName;
+    }
+}
+
+// 모든 배경 음악 정지
+function stopAllBackgroundMusic() {
+    Object.keys(bgPlayers).forEach(key => {
+        if (bgPlayers[key] && bgPlayersReady[key]) {
+            bgPlayers[key].pauseVideo();
+        }
+    });
+    currentBgPlayer = null;
+}
+
+// 나이 변경 시 대시보드 배경 음악 업데이트
+function updateDashboardBgMusic(age) {
+    const char = characterProfiles[age];
+    if (char.bgMusic && char.bgMusic.youtubeId && bgPlayers['dashboard']) {
+        // 기존 플레이어 정지
+        if (bgPlayersReady['dashboard']) {
+            bgPlayers['dashboard'].pauseVideo();
+        }
+
+        // 새 비디오 로드
+        bgPlayers['dashboard'].loadVideoById({
+            videoId: char.bgMusic.youtubeId,
+            startSeconds: 0
+        });
+
+        // 대시보드가 활성화되어 있으면 재생
+        if (currentBgPlayer === 'dashboard') {
+            setTimeout(() => {
+                bgPlayers['dashboard'].playVideo();
+            }, 500);
+        }
+    }
 }
 
 function renderMotifPage() {

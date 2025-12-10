@@ -34,6 +34,19 @@ export const characterProfiles = {
             "학교 생활과 가족 이야기 등을 포함할 수 있습니다."
         ],
 
+        // 관계
+        relationships: [
+            { name: "부모님", description: "따뜻한 가정에서 자라고 있습니다." },
+            { name: "친한 친구", description: "같은 반 친구들과 매일 함께 놉니다." },
+            { name: "선생님", description: "학교 선생님을 존경하고 따릅니다." }
+        ],
+
+        // 배경 음악
+        bgMusic: {
+            youtubeId: "dQw4w9WgXcQ", // YouTube 비디오 ID를 입력하세요
+            title: "11살 테마곡"
+        },
+
         // 갤러리
         gallery: [
             {
@@ -99,6 +112,19 @@ export const characterProfiles = {
             "학업, 진로, 인간관계에 대한 고민과 성장 이야기를 포함할 수 있습니다."
         ],
 
+        // 관계
+        relationships: [
+            { name: "가족", description: "독립하고 싶지만 아직은 의지하는 존재입니다." },
+            { name: "절친", description: "고민을 나누는 단짝 친구가 있습니다." },
+            { name: "선후배", description: "학교와 동아리에서 다양한 관계를 맺고 있습니다." }
+        ],
+
+        // 배경 음악
+        bgMusic: {
+            youtubeId: "dQw4w9WgXcQ", // YouTube 비디오 ID를 입력하세요
+            title: "17살 테마곡"
+        },
+
         // 갤러리
         gallery: [
             {
@@ -163,6 +189,19 @@ export const characterProfiles = {
             "29살 캐릭터의 성인기 배경 스토리를 작성합니다.",
             "커리어, 인간관계, 인생 목표 등 성인으로서의 삶과 경험을 포함할 수 있습니다."
         ],
+
+        // 관계
+        relationships: [
+            { name: "동료", description: "직장에서 함께 일하는 동료들과 좋은 관계를 유지합니다." },
+            { name: "연인/배우자", description: "인생의 동반자와 함께 미래를 계획합니다." },
+            { name: "멘토", description: "경력 개발을 위해 조언을 구하는 선배가 있습니다." }
+        ],
+
+        // 배경 음악
+        bgMusic: {
+            youtubeId: "dQw4w9WgXcQ", // YouTube 비디오 ID를 입력하세요
+            title: "29살 테마곡"
+        },
 
         // 갤러리
         gallery: [

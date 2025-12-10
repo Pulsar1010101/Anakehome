@@ -69,5 +69,11 @@ export const ownerData = {
             text: "GitHub",
             url: "https://github.com/your_account"
         }
-    ]
+    ],
+
+    // 배경 음악
+    bgMusic: {
+        youtubeId: "dQw4w9WgXcQ", // YouTube 비디오 ID를 입력하세요
+        title: "오너 테마곡"
+    }
 };

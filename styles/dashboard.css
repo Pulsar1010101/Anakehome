@@ -428,6 +428,82 @@
 }
 
 /* ========================================
+   관계 섹션
+   ======================================== */
+.relationships-section {
+    padding: 3rem;
+}
+
+.relationships-section h2 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: var(--highlight-color);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.relationships-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.relationship-item {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.relationship-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--highlight-color), #8b5cf6);
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.relationship-item:hover {
+    border-color: rgba(59, 130, 246, 0.5);
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2);
+}
+
+.relationship-item:hover::before {
+    opacity: 1;
+}
+
+.relationship-name {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--highlight-color);
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.relationship-name::before {
+    content: '👥';
+    font-size: 1.5rem;
+}
+
+.relationship-description {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+}
+
+/* ========================================
    갤러리 섹션
    ======================================== */
 .gallery-section {
