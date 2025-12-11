@@ -1,5 +1,6 @@
 import { playlistData } from './data.js';
 import { characterData, characterProfiles } from './character.js';
+import { characterData as charDetailData } from './data/character.js';
 import { ownerData } from './owner.js';
 import { motifData } from './motif.js';
 
@@ -258,24 +259,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     // 모티프 렌더링
     renderMotifPage();
 
-    // 나이 선택 버튼 이벤트 리스너
-    const ageBtns = document.querySelectorAll('.age-btn');
-    ageBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            const selectedAge = parseInt(btn.getAttribute('data-age'));
-            currentAge = selectedAge;
-
-            // 버튼 활성화 상태 변경
-            ageBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // 프로필 다시 렌더링
-            renderCharacterProfile(selectedAge);
-
-            // 배경 음악 업데이트
-            updateDashboardBgMusic(selectedAge);
-        });
-    });
+    // 나이 선택 탭 이벤트 리스너
+    setupAgeTabListeners();
 
     // 섹션 전환 기능
     const menuItems = document.querySelectorAll('.menu-item[data-section]');
@@ -339,87 +324,200 @@ function switchSection(sectionName) {
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);
 }
 
+function setupAgeTabListeners() {
+    const ageTabs = document.querySelectorAll('.age-tab');
+    ageTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            const selectedAge = parseInt(tab.getAttribute('data-age'));
+            currentAge = selectedAge;
+
+            // 탭 활성화 상태 변경
+            ageTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+
+            // data-age 속성 업데이트 (테마 색상 변경용)
+            const profileContainer = document.querySelector('.character-profile');
+            if (profileContainer) {
+                profileContainer.setAttribute('data-age', selectedAge);
+            }
+
+            // 프로필 다시 렌더링
+            renderCharacterProfile(selectedAge);
+
+            // 배경 음악 업데이트
+            updateDashboardBgMusic(selectedAge);
+        });
+    });
+}
+
 function renderCharacterProfile(age = currentAge) {
-    const char = characterProfiles[age];
+    const profile = charDetailData.profiles[age];
+    const common = charDetailData.common;
 
-    // 프로필 헤더
-    document.getElementById('char-main-img').src = char.profile.image;
+    if (!profile) return;
 
-    // 캐치프레이즈 3단 구조 렌더링
-    const catchphraseEl = document.getElementById('char-catchphrase');
-    catchphraseEl.innerHTML = `
-        <div class="catchphrase-top">${char.profile.catchphrase.top}</div>
-        <div class="catchphrase-main">${char.profile.catchphrase.main}</div>
-        <div class="catchphrase-bottom">${char.profile.catchphrase.bottom}</div>
-    `;
+    // data-age 속성 업데이트
+    const profileContainer = document.querySelector('.character-profile');
+    if (profileContainer) {
+        profileContainer.setAttribute('data-age', age);
+    }
 
-    document.getElementById('char-name').textContent = char.profile.name;
-    document.getElementById('char-name-en').textContent = char.profile.nameEn;
-    document.getElementById('char-quote').textContent = `"${char.profile.quote}"`;
-    document.getElementById('char-tags').innerHTML = char.profile.tags.map(tag =>
-        `<span class="profile-tag">${tag}</span>`
-    ).join('');
+    // 명제 섹션
+    const propNumber = document.getElementById('prop-number');
+    const propKanji = document.getElementById('prop-kanji');
+    const propDesc = document.getElementById('prop-desc');
 
-    // 기본 정보 (우측에는 최소한의 정보만 표시)
-    const essentialLabels = ['나이', '기숙사', '진영', '국적'];
-    const essentialInfo = char.basicInfo.filter(info => essentialLabels.includes(info.label));
-    const detailedInfo = char.basicInfo.filter(info => !essentialLabels.includes(info.label));
+    if (propNumber) propNumber.textContent = profile.proposition.number;
+    if (propKanji) propKanji.textContent = `「 ${profile.proposition.kanji} 」`;
+    if (propDesc) propDesc.innerHTML = profile.proposition.description;
 
-    document.getElementById('basic-info-grid').innerHTML = essentialInfo.map(info =>
-        `<div class="info-item">
-            <span class="info-label">${info.label}</span>
-            <span class="info-value">${info.value}</span>
-        </div>`
-    ).join('');
+    // 한마디 섹션
+    const quoteMain = document.getElementById('quote-main');
+    const quoteSub = document.getElementById('quote-sub');
+    const quoteDesc = document.getElementById('quote-desc');
 
-    // 탄생 정보
-    document.getElementById('birth-info-table').innerHTML = char.birthInfo.map(info =>
-        `<div class="detailed-info-row">
-            <div class="detailed-info-label">${info.label}</div>
-            <div class="detailed-info-value">${info.value}</div>
-        </div>`
-    ).join('');
+    if (quoteMain) quoteMain.innerHTML = `" ${profile.quote.main} "`;
+    if (quoteSub) {
+        quoteSub.textContent = profile.quote.sub || '';
+        quoteSub.style.display = profile.quote.sub ? 'block' : 'none';
+    }
+    if (quoteDesc) {
+        quoteDesc.innerHTML = profile.quote.description.map(line =>
+            line ? `<p>${line}</p>` : '<p>&nbsp;</p>'
+        ).join('');
+    }
 
-    // 상세 정보 (아래 테이블에 표시)
-    document.getElementById('detailed-info-table').innerHTML = detailedInfo.map(info =>
-        `<div class="detailed-info-row">
-            <div class="detailed-info-label">${info.label}</div>
-            <div class="detailed-info-value">${info.value}</div>
-        </div>`
-    ).join('');
+    // 캐릭터 이미지
+    const charAvatar = document.getElementById('char-avatar');
+    const avatarPlaceholder = document.getElementById('avatar-placeholder');
+    if (charAvatar) {
+        // 이미지 URL이 있으면 표시, 없으면 플레이스홀더
+        charAvatar.src = '';
+        if (avatarPlaceholder) avatarPlaceholder.style.display = 'block';
+    }
 
-    // 성격 & 특징
-    document.getElementById('personality-desc').textContent = char.personality.description;
-    document.getElementById('personality-traits').innerHTML = char.personality.traits.map(trait =>
-        `<li>${trait}</li>`
-    ).join('');
+    // 이름 섹션
+    const nameKr = document.getElementById('char-name-kr');
+    const nameEn = document.getElementById('char-name-en');
 
-    // 배경 스토리
-    document.getElementById('backstory-content').innerHTML = char.backstory.map(paragraph =>
-        `<p>${paragraph}</p>`
-    ).join('');
+    if (nameKr) nameKr.textContent = profile.name.kr;
+    if (nameEn) nameEn.textContent = profile.name.en;
 
-    // 관계
-    document.getElementById('relationships-grid').innerHTML = char.relationships.map(rel =>
-        `<div class="relationship-item">
-            <div class="relationship-name">${rel.name}</div>
-        </div>`
-    ).join('');
+    // 소속 뱃지
+    const affiliationBadge = document.getElementById('affiliation-badge');
+    const affiliationName = document.getElementById('affiliation-name');
 
-    // 갤러리
-    document.getElementById('gallery-grid').innerHTML = char.gallery.map(item =>
-        `<div class="gallery-item">
-            <img src="${item.image}" alt="${item.alt}">
-        </div>`
-    ).join('');
+    if (affiliationBadge) {
+        affiliationBadge.setAttribute('data-type', profile.affiliation.type);
+    }
+    if (affiliationName) {
+        affiliationName.textContent = profile.affiliation.name;
+    }
 
-    // 관련 링크
-    document.getElementById('profile-links').innerHTML = char.links.map(link =>
-        `<a href="${link.url}" class="profile-link">
-            <i data-lucide="${link.icon}"></i>
-            <span>${link.text}</span>
-        </a>`
-    ).join('');
+    // 성격 태그
+    const personalityTags = document.getElementById('personality-tags');
+    if (personalityTags) {
+        personalityTags.innerHTML = profile.personality.tags.map(tag =>
+            `<span class="personality-tag">${tag}</span>`
+        ).join('');
+    }
+
+    // 성격 설명
+    const personalityDesc = document.getElementById('personality-desc');
+    if (personalityDesc) {
+        personalityDesc.innerHTML = profile.personality.description.map(line =>
+            `<p>${line}</p>`
+        ).join('');
+    }
+
+    // BASIC INFO 카드
+    const basicInfoContent = document.getElementById('basic-info-content');
+    if (basicInfoContent) {
+        const basicInfo = [
+            { label: '키 / 체중', value: `${profile.basic.height} / ${profile.basic.weight}` },
+            { label: profile.basic.house ? '기숙사' : '진영', value: profile.basic.house || profile.basic.faction },
+            { label: '국적', value: profile.basic.nationality },
+            { label: '혈통', value: common.bloodStatus }
+        ];
+
+        basicInfoContent.innerHTML = basicInfo.map(info =>
+            `<div class="info-row">
+                <span class="info-label">${info.label}</span>
+                <span class="info-value">${info.value}</span>
+            </div>`
+        ).join('');
+    }
+
+    // BIRTH INFO 카드
+    const birthInfoContent = document.getElementById('birth-info-content');
+    if (birthInfoContent) {
+        const birthInfo = [
+            { label: '생일', value: common.birthday },
+            { label: '탄생화 / 탄생목', value: `${common.birthFlower} / ${common.birthTree}` },
+            { label: '탄생석', value: common.birthStone },
+            { label: '탄생색', value: common.birthColor.name, color: common.birthColor.hex }
+        ];
+
+        birthInfoContent.innerHTML = birthInfo.map(info =>
+            `<div class="info-row">
+                <span class="info-label">${info.label}</span>
+                <span class="info-value">
+                    ${info.color ? `<span class="color-preview" style="background-color: ${info.color}"></span>` : ''}
+                    ${info.value}
+                </span>
+            </div>`
+        ).join('');
+    }
+
+    // MAGIC INFO 카드
+    const magicInfoContent = document.getElementById('magic-info-content');
+    if (magicInfoContent) {
+        const themeColor = profile.themeColorAccent || profile.themeColor;
+        const magicInfo = [
+            { label: '지팡이', value: `${common.wand.wood} / ${common.wand.core}` },
+            { label: '길이 / 유연성', value: `${common.wand.length} / ${common.wand.flexibility}` },
+            { label: '테마색', value: themeColor, color: themeColor },
+            { label: '무드곡', value: `${profile.magic.moodSong.title} (${profile.magic.moodSong.artist})`, muted: true }
+        ];
+
+        magicInfoContent.innerHTML = magicInfo.map(info =>
+            `<div class="info-row">
+                <span class="info-label">${info.label}</span>
+                <span class="info-value${info.muted ? ' muted' : ''}">
+                    ${info.color ? `<span class="color-preview" style="background-color: ${info.color}"></span>` : ''}
+                    ${info.value}
+                </span>
+            </div>`
+        ).join('');
+    }
+
+    // 관계 섹션
+    const relationshipsGrid = document.getElementById('relationships-grid');
+    if (relationshipsGrid) {
+        if (profile.relationships && profile.relationships.length > 0) {
+            // 관계가 3개 이하면 single-row 클래스 추가
+            if (profile.relationships.length <= 3) {
+                relationshipsGrid.classList.add('single-row');
+            } else {
+                relationshipsGrid.classList.remove('single-row');
+            }
+
+            relationshipsGrid.innerHTML = profile.relationships.map(rel =>
+                `<div class="relationship-card">
+                    <div class="relationship-avatar">
+                        <span>${rel.initial || rel.name.charAt(0)}</span>
+                    </div>
+                    <div class="relationship-info">
+                        <div class="relationship-name">${rel.name}</div>
+                        <div class="relationship-description">${rel.description || ''}</div>
+                    </div>
+                </div>`
+            ).join('');
+        } else {
+            relationshipsGrid.classList.remove('single-row');
+            relationshipsGrid.innerHTML = '<p class="relationships-empty">등록된 관계가 없습니다.</p>';
+        }
+    }
 
     // 아이콘 재렌더링
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 50);

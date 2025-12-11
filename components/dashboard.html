@@ -1,93 +1,100 @@
-<div class="profile-container">
-    <!-- 나이 선택 -->
-    <div class="age-selector">
-        <button class="age-btn active" data-age="11">11살</button>
-        <button class="age-btn" data-age="17">17살</button>
-        <button class="age-btn" data-age="29">29살</button>
-    </div>
+<div class="character-profile" data-age="11">
+    <!-- 배경 그라데이션 -->
+    <div class="profile-glow"></div>
 
-    <!-- 메인 캐릭터 쇼케이스 -->
-    <div class="character-showcase">
-        <div class="showcase-bg-effects"></div>
-
-        <!-- 좌측: 캐릭터 정보 -->
-        <div class="character-info-left">
-            <div class="character-catchphrase" id="char-catchphrase">
-                <div class="catchphrase-top">제 1 명제</div>
-                <div class="catchphrase-main">「 定 」</div>
-                <div class="catchphrase-bottom">모든 <span class="highlight">미래는</span> 불변한다.</div>
-            </div>
-            <h1 class="character-title" id="char-name">캐릭터 이름</h1>
-            <p class="character-subtitle" id="char-name-en">Character Name</p>
-
-            <div class="character-quote" id="char-quote">
-                "캐릭터의 대표 대사나 모토를 여기에 작성합니다."
-            </div>
-
-            <div class="character-tags" id="char-tags">
-                <span class="profile-tag">#태그1</span>
-                <span class="profile-tag">#태그2</span>
-                <span class="profile-tag">#태그3</span>
+    <div class="character-container">
+        <!-- 나이 선택 탭 -->
+        <div class="age-tabs">
+            <div class="age-tabs-inner">
+                <button class="age-tab active" data-age="11">1학년 (11세)</button>
+                <button class="age-tab" data-age="17">7학년 (17세)</button>
+                <button class="age-tab" data-age="29">성인 (29세)</button>
             </div>
         </div>
 
-        <!-- 중앙: 캐릭터 이미지 -->
-        <div class="character-main">
-            <div class="character-glow"></div>
-            <div class="character-img-wrapper">
-                <img src="https://ui-avatars.com/api/?name=Character&background=3b82f6&color=fff&size=400" alt="캐릭터" id="char-main-img">
+        <!-- 헤더 3열 레이아웃 -->
+        <div class="character-header">
+            <!-- 좌측: 명제 + 한마디 -->
+            <div class="header-left">
+                <div class="proposition">
+                    <div class="proposition-number" id="prop-number">제 1 명제</div>
+                    <div class="proposition-kanji" id="prop-kanji">「 定 」</div>
+                    <div class="proposition-description" id="prop-desc">모든 <em>미래</em>는 불변한다.</div>
+                </div>
+
+                <div class="header-divider"></div>
+
+                <div class="quote-section">
+                    <div class="quote-main" id="quote-main">" <em>데자뷔</em>.... "</div>
+                    <div class="quote-sub" id="quote-sub"></div>
+                    <div class="quote-description" id="quote-desc"></div>
+                </div>
+            </div>
+
+            <!-- 중앙: 캐릭터 이미지 -->
+            <div class="header-center">
+                <div class="avatar-container">
+                    <div class="avatar-ring avatar-ring-outer"></div>
+                    <div class="avatar-ring avatar-ring-inner"></div>
+                    <div class="avatar-image">
+                        <img src="" alt="캐릭터 이미지" id="char-avatar">
+                        <span class="avatar-placeholder" id="avatar-placeholder">외관 이미지</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 우측: 이름 + 성격 -->
+            <div class="header-right">
+                <div class="name-section">
+                    <div class="name-label">NAME</div>
+                    <div class="name-kr" id="char-name-kr">모리슨 벨 라이어</div>
+                    <div class="name-en" id="char-name-en">MORRISON BELL LIAR</div>
+                </div>
+
+                <div class="affiliation-badge" id="affiliation-badge" data-type="house">
+                    <span id="affiliation-name">HUFFLEPUFF</span>
+                </div>
+
+                <div class="header-divider"></div>
+
+                <div class="personality-section">
+                    <div class="personality-tags" id="personality-tags"></div>
+                    <div class="personality-description" id="personality-desc"></div>
+                </div>
             </div>
         </div>
 
-        <!-- 우측: 기본 정보 -->
-        <div class="character-info-right">
-            <h2 class="info-section-title"><i data-lucide="user"></i> 기본 정보</h2>
-            <div class="info-stats" id="basic-info-grid"></div>
-        </div>
-    </div>
+        <!-- 정보 카드 영역 -->
+        <div class="info-cards">
+            <!-- BASIC INFO -->
+            <div class="info-card">
+                <div class="info-card-title">BASIC INFO</div>
+                <div class="info-card-content" id="basic-info-content"></div>
+            </div>
 
-    <!-- 생일 정보 섹션 -->
-    <div class="detailed-info-section">
-        <h2><i data-lucide="cake"></i> 탄생 정보</h2>
-        <div class="detailed-info-table" id="birth-info-table"></div>
-    </div>
+            <!-- BIRTH INFO -->
+            <div class="info-card">
+                <div class="info-card-title">BIRTH INFO</div>
+                <div class="info-card-content" id="birth-info-content"></div>
+            </div>
 
-    <!-- 상세 기본 정보 섹션 (테이블 형태) -->
-    <div class="detailed-info-section">
-        <h2><i data-lucide="file-text"></i> 상세 정보</h2>
-        <div class="detailed-info-table" id="detailed-info-table"></div>
-    </div>
-
-    <!-- 상세 정보 그리드 -->
-    <div class="details-grid">
-        <div class="detail-card">
-            <h2><i data-lucide="heart"></i> 성격 & 특징</h2>
-            <p id="personality-desc"></p>
-            <ul id="personality-traits"></ul>
+            <!-- MAGIC INFO -->
+            <div class="info-card">
+                <div class="info-card-title">MAGIC INFO</div>
+                <div class="info-card-content" id="magic-info-content"></div>
+            </div>
         </div>
 
-        <div class="detail-card">
-            <h2><i data-lucide="book-open"></i> 배경 스토리</h2>
-            <div id="backstory-content"></div>
+        <!-- 관계 섹션 -->
+        <div class="relationships-section">
+            <div class="section-header">
+                <span class="section-title">RELATIONSHIPS</span>
+                <div class="section-line"></div>
+            </div>
+            <div class="relationships-grid" id="relationships-grid">
+                <p class="relationships-empty">등록된 관계가 없습니다.</p>
+            </div>
         </div>
-    </div>
-
-    <!-- 관계 섹션 -->
-    <div class="relationships-section">
-        <h2><i data-lucide="users"></i> 관계</h2>
-        <div class="relationships-grid" id="relationships-grid"></div>
-    </div>
-
-    <!-- 갤러리 섹션 -->
-    <div class="gallery-section">
-        <h2><i data-lucide="image"></i> 갤러리</h2>
-        <div class="profile-gallery" id="gallery-grid"></div>
-    </div>
-
-    <!-- 링크 섹션 -->
-    <div class="links-section">
-        <h2><i data-lucide="link"></i> 관련 링크</h2>
-        <div class="profile-links" id="profile-links"></div>
     </div>
 
     <!-- 배경 음악 플레이어 (숨김) -->
