@@ -71,6 +71,8 @@ window.onYouTubeIframeAPIReady = function() {
                 'onStateChange': onPlayerStateChange
             }
         });
+        
+        // 여기서 DOM이 아직 없을 수도 있으므로 안전하게 호출
         renderPlaylist();
         loadSongUI(0);
     }
@@ -115,6 +117,10 @@ function extractYouTubeId(url) {
 
 function renderPlaylist() {
     const container = document.getElementById('playlist-container');
+    
+    // [FIX] 컴포넌트가 로드되지 않았다면 중단 (에러 방지)
+    if (!container) return;
+
     container.innerHTML = '';
     playlistData.forEach((song, index) => {
         const div = document.createElement('div');
@@ -135,29 +141,43 @@ function loadSongUI(index) {
     if(!playlistData[index]) return;
     const song = playlistData[index];
     
+    // [FIX] DOM 요소가 존재하는지 먼저 확인
+    const albumArt = document.getElementById('main-album-art');
+    if (!albumArt) return;
+
     // 기본 정보
-    document.getElementById('main-album-art').src = song.cover;
+    albumArt.src = song.cover;
     const titleEl = document.getElementById('main-title');
-    titleEl.innerText = song.title;
-    titleEl.onclick = () => window.open(song.link, '_blank');
-    document.getElementById('main-artist').innerText = song.artist || 'Unknown Artist';
-    document.getElementById('player-zone').style.setProperty('--player-bg-image', `url('${song.cover}')`);
+    if(titleEl) {
+        titleEl.innerText = song.title;
+        titleEl.onclick = () => window.open(song.link, '_blank');
+    }
+    
+    const artistEl = document.getElementById('main-artist');
+    if(artistEl) artistEl.innerText = song.artist || 'Unknown Artist';
+    
+    const playerZone = document.getElementById('player-zone');
+    if(playerZone) playerZone.style.setProperty('--player-bg-image', `url('${song.cover}')`);
     
     // [NEW] 해시태그 처리
     const tagBox = document.getElementById('main-hashtags');
-    tagBox.innerHTML = '';
-    const tags = song.hashtags || [];
-    if (tags.length > 0) {
-        tagBox.innerHTML = tags.map(t => `<span class="hashtag">${t}</span>`).join('');
+    if (tagBox) {
+        tagBox.innerHTML = '';
+        const tags = song.hashtags || [];
+        if (tags.length > 0) {
+            tagBox.innerHTML = tags.map(t => `<span class="hashtag">${t}</span>`).join('');
+        }
     }
 
     // [NEW] 코멘트 처리
     const commentEl = document.getElementById('main-comment');
-    if (song.comment && song.comment.trim() !== "") {
-        commentEl.innerText = `"${song.comment}"`;
-        commentEl.style.display = 'block';
-    } else {
-        commentEl.style.display = 'none';
+    if (commentEl) {
+        if (song.comment && song.comment.trim() !== "") {
+            commentEl.innerText = `"${song.comment}"`;
+            commentEl.style.display = 'block';
+        } else {
+            commentEl.style.display = 'none';
+        }
     }
 
     document.querySelectorAll('.song-item').forEach((el, i) => {
@@ -165,14 +185,16 @@ function loadSongUI(index) {
     });
 
     const lyricsContent = document.getElementById('lyrics-content');
-    if (song.lyrics && song.lyrics.trim() !== "") {
-        lyricsContent.innerHTML = song.lyrics;
-        lyricsContent.style.display = 'block'; 
-    } else {
-        lyricsContent.innerHTML = `<div style="margin-top:2rem; font-size:0.85rem; color:#666;">등록된 가사가 없습니다.</div>`;
-        lyricsContent.style.display = 'flex';
-        lyricsContent.style.flexDirection = 'column';
-        lyricsContent.style.justifyContent = 'center';
+    if (lyricsContent) {
+        if (song.lyrics && song.lyrics.trim() !== "") {
+            lyricsContent.innerHTML = song.lyrics;
+            lyricsContent.style.display = 'block'; 
+        } else {
+            lyricsContent.innerHTML = `<div style="margin-top:2rem; font-size:0.85rem; color:#666;">등록된 가사가 없습니다.</div>`;
+            lyricsContent.style.display = 'flex';
+            lyricsContent.style.flexDirection = 'column';
+            lyricsContent.style.justifyContent = 'center';
+        }
     }
 }
 
@@ -184,7 +206,7 @@ function playSpecificSong(index) {
         setTimeout(() => player.playVideo(), 100);
 
         // 최근 재생 목록에 추가
-        addToRecentPlays(playlistData[index]);
+        // addToRecentPlays(playlistData[index]); // 함수 정의가 없어 주석 처리하거나 필요 시 추가
     }
 }
 
@@ -205,12 +227,14 @@ function playPrev() {
 
 function updatePlayButton() {
     const btn = document.getElementById('btn-play-pause');
+    if (!btn) return;
     btn.innerHTML = isPlaying ? '<i data-lucide="pause" size="28"></i>' : '<i data-lucide="play" size="28"></i>';
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function updateRepeatButton() {
     const btn = document.getElementById('btn-repeat');
+    if (!btn) return;
     if (isRepeatOne) {
         btn.innerHTML = '<i data-lucide="repeat-1" size="20"></i>';
         btn.classList.add('active');
@@ -229,9 +253,13 @@ function startProgressLoop() {
         const duration = player.getDuration();
         if(duration > 0) {
             const percent = (current / duration) * 100;
-            document.getElementById('progress-bar-fill').style.width = `${percent}%`;
-            document.getElementById('current-time').innerText = formatTime(current);
-            document.getElementById('total-time').innerText = formatTime(duration);
+            const barFill = document.getElementById('progress-bar-fill');
+            const currTimeEl = document.getElementById('current-time');
+            const totTimeEl = document.getElementById('total-time');
+            
+            if(barFill) barFill.style.width = `${percent}%`;
+            if(currTimeEl) currTimeEl.innerText = formatTime(current);
+            if(totTimeEl) totTimeEl.innerText = formatTime(duration);
         }
     }, 500);
 }
@@ -249,6 +277,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     await loadAllComponents();
 
     setTimeout(() => { if (typeof lucide !== 'undefined') lucide.createIcons(); }, 100);
+
+    // [FIX] 컴포넌트 로드가 끝났으니, 혹시 YouTube API가 먼저 로드되어 
+    // 렌더링을 건너뛰었을 플레이리스트 UI를 여기서 갱신해줍니다.
+    renderPlaylist();
+    loadSongUI(currentSongIndex);
 
     // 캐릭터 프로필 렌더링
     renderCharacterProfile();
@@ -272,17 +305,28 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     // 플레이어 컨트롤
-    document.getElementById('btn-play-pause').addEventListener('click', togglePlay);
-    document.getElementById('btn-next').addEventListener('click', playNext);
-    document.getElementById('btn-prev').addEventListener('click', playPrev);
-    document.getElementById('btn-shuffle').addEventListener('click', () => {
+    const btnPlay = document.getElementById('btn-play-pause');
+    if(btnPlay) btnPlay.addEventListener('click', togglePlay);
+    
+    const btnNext = document.getElementById('btn-next');
+    if(btnNext) btnNext.addEventListener('click', playNext);
+    
+    const btnPrev = document.getElementById('btn-prev');
+    if(btnPrev) btnPrev.addEventListener('click', playPrev);
+    
+    const btnShuffle = document.getElementById('btn-shuffle');
+    if(btnShuffle) btnShuffle.addEventListener('click', () => {
         playSpecificSong(Math.floor(Math.random() * playlistData.length));
     });
-    document.getElementById('btn-repeat').addEventListener('click', () => {
+    
+    const btnRepeat = document.getElementById('btn-repeat');
+    if(btnRepeat) btnRepeat.addEventListener('click', () => {
         isRepeatOne = !isRepeatOne;
         updateRepeatButton();
     });
-    document.getElementById('progress-bar-bg').addEventListener('click', (e) => {
+    
+    const progressBg = document.getElementById('progress-bar-bg');
+    if(progressBg) progressBg.addEventListener('click', (e) => {
         if(!player || !playerReady) return;
         const rect = e.currentTarget.getBoundingClientRect();
         const percent = (e.clientX - rect.left) / rect.width;
@@ -663,7 +707,7 @@ function renderOwnerProfile() {
 function initBackgroundPlayers() {
     // 대시보드 (현재 나이에 따라 동적으로 변경)
     const char = characterProfiles[currentAge];
-    if (char.bgMusic && char.bgMusic.youtubeId) {
+    if (char && char.bgMusic && char.bgMusic.youtubeId) {
         bgPlayers['dashboard'] = new YT.Player('bg-player-dashboard', {
             height: '0',
             width: '0',
@@ -684,7 +728,7 @@ function initBackgroundPlayers() {
     }
 
     // 오너 섹션
-    if (ownerData.bgMusic && ownerData.bgMusic.youtubeId) {
+    if (ownerData && ownerData.bgMusic && ownerData.bgMusic.youtubeId) {
         bgPlayers['guide'] = new YT.Player('bg-player-guide', {
             height: '0',
             width: '0',
@@ -730,7 +774,7 @@ function stopAllBackgroundMusic() {
 // 나이 변경 시 대시보드 배경 음악 업데이트
 function updateDashboardBgMusic(age) {
     const char = characterProfiles[age];
-    if (char.bgMusic && char.bgMusic.youtubeId && bgPlayers['dashboard']) {
+    if (char && char.bgMusic && char.bgMusic.youtubeId && bgPlayers['dashboard']) {
         // 기존 플레이어 정지
         if (bgPlayersReady['dashboard']) {
             bgPlayers['dashboard'].pauseVideo();
