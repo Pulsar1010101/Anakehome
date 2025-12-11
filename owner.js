@@ -1,6 +1,6 @@
 export const ownerData = {
     // 프로필 이미지 (트위터 @NINANINANINANO_ 프로필 사진)
-    profileImage: "https://unavatar.io/twitter/NINANINANINANO_",
+    profileImage: "https://pbs.twimg.com/profile_images/1998265726881484800/YMMuZg4U_400x400.jpg",
 
     // 마스코트/치비 이미지
     mascotImage: "https://ui-avatars.com/api/?name=M&background=3b82f6&color=fff&size=150",
