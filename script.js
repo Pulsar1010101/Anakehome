@@ -364,44 +364,43 @@ function setupAgeTabListeners() {
     });
 }
 
-// [FIX] 데이터 구조에 맞게 완전히 재작성된 렌더링 함수
+// 새로운 데이터 구조에 맞게 재작성된 렌더링 함수
 function renderCharacterProfile(age = currentAge) {
-    // 1. 올바른 변수(characterProfiles) 사용
     const data = characterProfiles[age];
     if (!data) return;
 
-    // data-age 업데이트
+    // data-age 업데이트 (CSS 테마 색상용)
     const profileContainer = document.querySelector('.character-profile');
     if (profileContainer) {
         profileContainer.setAttribute('data-age', age);
     }
 
-    // 2. 명제 및 캐치프레이즈 (profile 객체 사용)
-    const propNumber = document.getElementById('prop-number');
+    // 1. 명제 섹션
+    const propLabel = document.getElementById('prop-label');
     const propKanji = document.getElementById('prop-kanji');
     const propDesc = document.getElementById('prop-desc');
 
-    if (propNumber && data.profile.catchphrase) propNumber.textContent = data.profile.catchphrase.top;
-    if (propKanji && data.profile.catchphrase) propKanji.textContent = data.profile.catchphrase.main;
-    if (propDesc && data.profile.catchphrase) {
-        propDesc.innerHTML = data.profile.catchphrase.bottom;
-        if (data.profile.catchphrase.isScripture) {
-            propDesc.classList.add('scripture-text');
+    if (propLabel && data.proposition) propLabel.textContent = data.proposition.label;
+    if (propKanji && data.proposition) propKanji.textContent = data.proposition.kanji;
+    if (propDesc && data.proposition) {
+        propDesc.innerHTML = data.proposition.description;
+        if (data.proposition.isScripture) {
+            propDesc.classList.add('scripture');
         } else {
-            propDesc.classList.remove('scripture-text');
+            propDesc.classList.remove('scripture');
         }
     }
 
-    // 3. 한마디 (Quote)
-    const quoteMain = document.getElementById('quote-main');
-    if (quoteMain) quoteMain.innerHTML = `"${data.profile.quote}"`;
+    // 2. 한마디
+    const quoteText = document.getElementById('quote-text');
+    if (quoteText) quoteText.textContent = data.quote;
 
-    // 4. 캐릭터 이미지
+    // 3. 캐릭터 이미지
     const charAvatar = document.getElementById('char-avatar');
     const avatarPlaceholder = document.getElementById('avatar-placeholder');
     if (charAvatar) {
-        if (data.profile.image) {
-            charAvatar.src = data.profile.image;
+        if (data.image) {
+            charAvatar.src = data.image;
             charAvatar.style.display = 'block';
             if (avatarPlaceholder) avatarPlaceholder.style.display = 'none';
         } else {
@@ -412,96 +411,105 @@ function renderCharacterProfile(age = currentAge) {
 
     // 이미지 출처
     const avatarCredit = document.getElementById('avatar-credit');
-    if (avatarCredit && data.profile.imageCredit) {
-        const credit = data.profile.imageCredit;
-        if (credit.startsWith('http')) {
-            avatarCredit.innerHTML = `illust by <a href="${credit}" target="_blank">Link</a>`;
+    if (avatarCredit) {
+        if (data.imageCredit) {
+            if (data.imageCredit.startsWith('http')) {
+                avatarCredit.innerHTML = `illust by <a href="${data.imageCredit}" target="_blank">Link</a>`;
+            } else {
+                avatarCredit.textContent = `illust by ${data.imageCredit}`;
+            }
+            avatarCredit.style.display = 'block';
         } else {
-            avatarCredit.textContent = `illust by ${credit}`;
+            avatarCredit.style.display = 'none';
         }
-        avatarCredit.style.display = 'block';
     }
 
-    // 5. 이름
-    const nameKr = document.getElementById('char-name-kr');
-    const nameEn = document.getElementById('char-name-en');
-    if (nameKr) nameKr.textContent = data.profile.name;
-    if (nameEn) nameEn.textContent = data.profile.nameEn;
+    // 4. 이름 & 키/몸무게
+    const charName = document.getElementById('char-name');
+    const charStats = document.getElementById('char-stats');
+    if (charName) charName.textContent = data.name;
+    if (charStats) charStats.textContent = `${data.height} / ${data.weight}`;
 
-    // 6. 태그 및 설명
+    // 5. 소속 정보 (기숙사/진영)
+    const affiliationLabel = document.getElementById('affiliation-label');
+    const affiliationValue = document.getElementById('affiliation-value');
+    if (affiliationLabel && data.affiliation) {
+        affiliationLabel.textContent = data.affiliation.type === 'house' ? '기숙사' : '진영';
+    }
+    if (affiliationValue && data.affiliation) {
+        affiliationValue.textContent = data.affiliation.name;
+    }
+
+    // 6. 국적 & 혈통
+    const nationalityValue = document.getElementById('nationality-value');
+    const bloodValue = document.getElementById('blood-value');
+    if (nationalityValue) nationalityValue.textContent = data.nationality;
+    if (bloodValue) bloodValue.textContent = data.bloodStatus;
+
+    // 7. 성격 태그
     const personalityTags = document.getElementById('personality-tags');
-    if (personalityTags && data.profile.tags) {
-        personalityTags.innerHTML = data.profile.tags.map(tag =>
-            `<span class="personality-tag">${tag}</span>`
-        ).join('');
-    }
-
-    const personalityDesc = document.getElementById('personality-desc');
-    if (personalityDesc && data.personality) {
-        // 줄바꿈 문자(\n)를 <br>로 변환하거나 p태그로 감싸기
-        personalityDesc.innerText = data.personality.description;
-    }
-
-    // [FIX] 배열 데이터를 그대로 매핑 (일일이 지정하지 않음)
-    
-    // 7. BASIC INFO
-    const basicInfoContent = document.getElementById('basic-info-content');
-    if (basicInfoContent && data.basicInfo) {
-        basicInfoContent.innerHTML = data.basicInfo.map(info =>
-            `<div class="info-row">
-                <span class="info-label">${info.label}</span>
-                <span class="info-value">${info.value}</span>
-            </div>`
+    if (personalityTags && data.personalityTags) {
+        personalityTags.innerHTML = data.personalityTags.map(tag =>
+            `<span class="tag">${tag}</span>`
         ).join('');
     }
 
     // 8. BIRTH INFO
-    const birthInfoContent = document.getElementById('birth-info-content');
-    if (birthInfoContent && data.birthInfo) {
-        birthInfoContent.innerHTML = data.birthInfo.map(info =>
-            `<div class="info-row">
-                <span class="info-label">${info.label}</span>
-                <span class="info-value">${info.value}</span>
-            </div>`
-        ).join('');
+    const birthday = document.getElementById('birthday');
+    const birthFlower = document.getElementById('birth-flower');
+    const birthStone = document.getElementById('birth-stone');
+    const birthTree = document.getElementById('birth-tree');
+    const birthColor = document.getElementById('birth-color');
+
+    if (birthday) birthday.textContent = data.birthday;
+    if (birthFlower) birthFlower.textContent = data.birthFlower;
+    if (birthStone) birthStone.textContent = data.birthStone;
+    if (birthTree) birthTree.textContent = data.birthTree;
+    if (birthColor) birthColor.textContent = data.birthColor;
+
+    // 9. MAGIC INFO
+    const themeColorBox = document.getElementById('theme-color-box');
+    const themeColorCode = document.getElementById('theme-color-code');
+    const wandInfo = document.getElementById('wand-info');
+
+    if (themeColorBox) themeColorBox.style.backgroundColor = data.themeColor;
+    if (themeColorCode) themeColorCode.textContent = data.themeColor;
+    if (wandInfo && data.wand) {
+        wandInfo.textContent = `${data.wand.wood} / ${data.wand.core} / ${data.wand.length} / ${data.wand.flexibility}`;
     }
 
-    // 9. MAGIC INFO / BACKSTORY
-    // 데이터에 magicInfo가 없으므로 backstory를 대신 표시하거나 처리
-    const magicInfoContent = document.getElementById('magic-info-content');
-    if (magicInfoContent) {
-        if(data.backstory) {
-             magicInfoContent.innerHTML = data.backstory.map(text => 
-                `<p style="margin-bottom:8px; font-size:0.9rem; color:#555;">${text}</p>`
-             ).join('');
-        } else {
-            magicInfoContent.innerHTML = '';
-        }
+    // 10. LINKS
+    const profileLink = document.getElementById('profile-link');
+    const moodSong = document.getElementById('mood-song');
+
+    if (profileLink && data.profileLink) {
+        profileLink.href = data.profileLink;
+    }
+    if (moodSong && data.moodSong) {
+        moodSong.textContent = data.moodSong.title;
     }
 
-    // 10. 관계 섹션
+    // 11. 관계 섹션
+    const relationshipsSection = document.getElementById('relationships-section');
     const relationshipsGrid = document.getElementById('relationships-grid');
-    if (relationshipsGrid) {
+
+    if (relationshipsSection && relationshipsGrid) {
         if (data.relationships && data.relationships.length > 0) {
-            if (data.relationships.length <= 3) {
-                relationshipsGrid.classList.add('single-row');
-            } else {
-                relationshipsGrid.classList.remove('single-row');
-            }
+            relationshipsSection.classList.add('visible');
             relationshipsGrid.innerHTML = data.relationships.map(rel =>
                 `<div class="relationship-card">
                     <div class="relationship-avatar">
-                        <span>${rel.initial || rel.name.charAt(0)}</span>
+                        <span>${rel.name.charAt(0)}</span>
                     </div>
                     <div class="relationship-info">
                         <div class="relationship-name">${rel.name}</div>
-                        <div class="relationship-description">${rel.description || ''}</div>
+                        ${rel.relation ? `<div class="relationship-relation">${rel.relation}</div>` : ''}
                     </div>
                 </div>`
             ).join('');
         } else {
-            relationshipsGrid.classList.remove('single-row');
-            relationshipsGrid.innerHTML = '<p class="relationships-empty">등록된 관계가 없습니다.</p>';
+            relationshipsSection.classList.remove('visible');
+            relationshipsGrid.innerHTML = '';
         }
     }
 
@@ -604,21 +612,21 @@ function renderOwnerProfile() {
 
 function initBackgroundPlayers() {
     const char = characterProfiles[currentAge];
-    if (char && char.bgMusic && char.bgMusic.youtubeId) {
+    if (char && char.moodSong && char.moodSong.youtubeId) {
         bgPlayers['dashboard'] = new YT.Player('bg-player-dashboard', {
             height: '0',
             width: '0',
-            videoId: char.bgMusic.youtubeId,
+            videoId: char.moodSong.youtubeId,
             playerVars: {
                 autoplay: 0,
                 controls: 0,
                 loop: 1,
-                playlist: char.bgMusic.youtubeId
+                playlist: char.moodSong.youtubeId
             },
             events: {
                 onReady: (event) => {
                     bgPlayersReady['dashboard'] = true;
-                    event.target.setVolume(20); 
+                    event.target.setVolume(20);
                 }
             }
         });
@@ -664,13 +672,13 @@ function stopAllBackgroundMusic() {
 
 function updateDashboardBgMusic(age) {
     const char = characterProfiles[age];
-    if (char && char.bgMusic && char.bgMusic.youtubeId && bgPlayers['dashboard']) {
+    if (char && char.moodSong && char.moodSong.youtubeId && bgPlayers['dashboard']) {
         if (bgPlayersReady['dashboard']) {
             bgPlayers['dashboard'].pauseVideo();
         }
 
         bgPlayers['dashboard'].loadVideoById({
-            videoId: char.bgMusic.youtubeId,
+            videoId: char.moodSong.youtubeId,
             startSeconds: 0
         });
 
