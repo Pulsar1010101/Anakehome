@@ -407,15 +407,19 @@ function renderCharacterProfile(age = currentAge) {
     const avatarCredit = document.getElementById('avatar-credit');
     if (avatarCredit) {
         if (profile.imageCredit && profile.imageCredit.text) {
+            // 출처 데이터가 있는 경우
             if (profile.imageCredit.url) {
                 avatarCredit.innerHTML = `illust by <a href="${profile.imageCredit.url}" target="_blank" rel="noopener noreferrer">${profile.imageCredit.text}</a>`;
             } else {
                 avatarCredit.textContent = `illust by ${profile.imageCredit.text}`;
             }
-            avatarCredit.style.display = 'block';
+            avatarCredit.classList.remove('placeholder');
         } else {
-            avatarCredit.style.display = 'none';
+            // 출처 데이터가 없는 경우 placeholder 표시
+            avatarCredit.innerHTML = `<span class="credit-placeholder">illust by —</span>`;
+            avatarCredit.classList.add('placeholder');
         }
+        avatarCredit.style.display = 'block';
     }
 
     // 이름 섹션
