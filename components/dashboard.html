@@ -1,5 +1,5 @@
 <div class="character-profile" data-age="11">
-    <!-- 배경 그라데이션 -->
+    <!-- 배경 글로우 -->
     <div class="profile-glow"></div>
 
     <div class="character-container">
@@ -17,25 +17,17 @@
             <!-- 좌측: 명제 + 한마디 -->
             <div class="header-left">
                 <div class="proposition">
-                    <div class="proposition-number" id="prop-number">제 1 명제</div>
-                    <div class="proposition-kanji" id="prop-kanji">「 定 」</div>
-                    <div class="proposition-description" id="prop-desc">모든 <em>미래</em>는 불변한다.</div>
+                    <div class="proposition-label" id="prop-label">제 1 명제</div>
+                    <div class="proposition-kanji" id="prop-kanji">定</div>
+                    <div class="proposition-desc" id="prop-desc">모든 <em>미래</em>는 불변한다.</div>
                 </div>
-
-                <div class="header-divider"></div>
-
-                <div class="quote-section">
-                    <div class="quote-main" id="quote-main">" <em>데자뷔</em>.... "</div>
-                    <div class="quote-sub" id="quote-sub"></div>
-                    <div class="quote-description" id="quote-desc"></div>
-                </div>
+                <div class="quote-text" id="quote-text">" 데자뷔.... "</div>
             </div>
 
             <!-- 중앙: 캐릭터 이미지 -->
             <div class="header-center">
-                <div class="avatar-container">
-                    <div class="avatar-ring avatar-ring-outer"></div>
-                    <div class="avatar-ring avatar-ring-inner"></div>
+                <div class="avatar-wrapper">
+                    <div class="avatar-ring"></div>
                     <div class="avatar-image">
                         <img src="" alt="캐릭터 이미지" id="char-avatar">
                         <span class="avatar-placeholder" id="avatar-placeholder">외관 이미지</span>
@@ -44,56 +36,115 @@
                 <div class="avatar-credit" id="avatar-credit"></div>
             </div>
 
-            <!-- 우측: 이름 + 성격 -->
+            <!-- 우측: 이름 + 기본 정보 -->
             <div class="header-right">
-                <div class="name-section">
-                    <div class="name-label">NAME</div>
-                    <div class="name-kr" id="char-name-kr">모리슨 벨 라이어</div>
-                    <div class="name-en" id="char-name-en">MORRISON BELL LIAR</div>
+                <div class="char-name">
+                    <span class="name-label">이름</span>
+                    <span class="name-value" id="char-name">모리슨 벨 라이어</span>
+                </div>
+                <div class="char-stats">
+                    <span class="stats-label">키 / 몸무게</span>
+                    <span class="stats-value" id="char-stats">130 / 25</span>
                 </div>
 
-                <div class="affiliation-badge" id="affiliation-badge" data-type="house">
-                    <span id="affiliation-name">HUFFLEPUFF</span>
-                </div>
-
-                <div class="header-divider"></div>
-
-                <div class="personality-section">
-                    <div class="personality-tags" id="personality-tags"></div>
-                    <div class="personality-description" id="personality-desc"></div>
+                <div class="char-info-grid">
+                    <div class="info-item">
+                        <span class="info-label" id="affiliation-label">기숙사</span>
+                        <span class="info-value" id="affiliation-value">후플푸프</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">국적</span>
+                        <span class="info-value" id="nationality-value">아일랜드</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">혈통</span>
+                        <span class="info-value" id="blood-value">머글 혈통</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">성격</span>
+                        <div class="personality-tags" id="personality-tags">
+                            <span class="tag">#무신경</span>
+                            <span class="tag">#무반응</span>
+                            <span class="tag">#무감각</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 정보 카드 영역 -->
         <div class="info-cards">
-            <!-- BASIC INFO -->
-            <div class="info-card">
-                <div class="info-card-title">BASIC INFO</div>
-                <div class="info-card-content" id="basic-info-content"></div>
-            </div>
-
             <!-- BIRTH INFO -->
             <div class="info-card">
                 <div class="info-card-title">BIRTH INFO</div>
-                <div class="info-card-content" id="birth-info-content"></div>
+                <div class="info-card-content">
+                    <div class="info-row">
+                        <span class="info-label">생일</span>
+                        <span class="info-value" id="birthday">11월 29일</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">탄생화</span>
+                        <span class="info-value" id="birth-flower">바카리스</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">탄생석</span>
+                        <span class="info-value" id="birth-stone">알렉산드라이트 토르마린</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">탄생목</span>
+                        <span class="info-value" id="birth-tree">사시나무</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">탄생색</span>
+                        <span class="info-value" id="birth-color">블록 레드</span>
+                    </div>
+                </div>
             </div>
 
             <!-- MAGIC INFO -->
             <div class="info-card">
                 <div class="info-card-title">MAGIC INFO</div>
-                <div class="info-card-content" id="magic-info-content"></div>
+                <div class="info-card-content">
+                    <div class="info-row">
+                        <span class="info-label">테마색</span>
+                        <span class="info-value theme-color">
+                            <span class="color-box" id="theme-color-box"></span>
+                            <span id="theme-color-code">#FFD800</span>
+                        </span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">지팡이</span>
+                        <span class="info-value" id="wand-info">아카시아 / 유니콘의 털 / 7.75inch / 딱딱한</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- LINKS -->
+            <div class="info-card">
+                <div class="info-card-title">LINKS</div>
+                <div class="info-card-content">
+                    <div class="info-row clickable" id="profile-link-row">
+                        <span class="info-label">공개 프로필</span>
+                        <a href="#" target="_blank" class="info-value link" id="profile-link">
+                            <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">무드곡</span>
+                        <span class="info-value" id="mood-song">없어, 없어 (니노마에 이나이스 커버)</span>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- 관계 섹션 -->
-        <div class="relationships-section">
+        <div class="relationships-section" id="relationships-section">
             <div class="section-header">
                 <span class="section-title">RELATIONSHIPS</span>
                 <div class="section-line"></div>
             </div>
             <div class="relationships-grid" id="relationships-grid">
-                <p class="relationships-empty">등록된 관계가 없습니다.</p>
+                <!-- 동적으로 채워짐 -->
             </div>
         </div>
     </div>
