@@ -53,7 +53,6 @@ export const characterData = {
       personality: {
         tags: ["#무신경", "#무반응", "#무감각"],
         description: [
-          "무신경, 무반응, 무감각.",
           "모리슨을 이루는 세가지 단어들이다.",
           "그는 언제나 한발 뒤로 물러나 있었다.",
           "혼자만의 세계를 바라보듯, 샛붉은 눈동자는 허공을 향한다.",
@@ -75,15 +74,7 @@ export const characterData = {
       magic: {
         moodSong: { title: "없어, 없어", artist: "니노마에 이나이스", url: "https://www.youtube.com/watch?v=injd7gHrIGU" }
       },
-
-      // 배경 스토리
-      backstory: [
-        "아일랜드 출신의 머글 태생 마법사로, 호그와트 1학년에 입학했습니다.",
-        "후플푸프 기숙사에 배정되었지만, 특유의 무감각한 성격 때문에 다른 학생들과는 조금 다른 모습을 보입니다.",
-        "'모든 미래는 불변한다'는 자신만의 명제를 가지고 있으며, 자주 데자뷔를 경험하는 것처럼 행동합니다.",
-        "아카시아 나무와 유니콘의 털로 만들어진 7.75인치의 딱딱한 지팡이를 사용합니다."
-      ],
-
+      
       // 관계
       relationships: [],
 
@@ -91,28 +82,7 @@ export const characterData = {
       bgMusic: {
         youtubeId: "injd7gHrIGU",
         title: "없어, 없어 (니노마에 이나이스 커버)"
-      },
-
-      // 갤러리
-      gallery: [
-        { image: "", alt: "11살 이미지 1" },
-        { image: "", alt: "11살 이미지 2" },
-        { image: "", alt: "11살 이미지 3" }
-      ],
-
-      // 관련 링크
-      links: [
-        {
-          icon: "external-link",
-          text: "프로필",
-          url: "https://docs.google.com/document/d/1SKDKcVinYIDvQbaD78O6YrXuPe-jx4L9KnJAOIpjcdI/edit?tab=t.0"
-        },
-        {
-          icon: "external-link",
-          text: "관련 작품",
-          url: "#"
-        }
-      ]
+      }
     },
 
     "17": {
@@ -153,7 +123,6 @@ export const characterData = {
       personality: {
         tags: ["#낭만적인", "#다정한", "#상냥한"],
         description: [
-          "낭만적인 / 다정한 / 상냥한",
           "불쾌한 낯짝, 시체처럼 비틀거리던 아이는 더는 없다.",
           "이상하게 기워진 헝겊인형처럼, 고장난 오토마톤처럼 어색히 굴던 그는",
           "제대로 수선받은 것마냥 이상적인 학생으로 살기 시작했다.",
@@ -176,14 +145,6 @@ export const characterData = {
         moodSong: { title: "All Alone With You", artist: "Yoel", url: "https://youtu.be/uGxab-AbiBc" }
       },
 
-      // 배경 스토리
-      backstory: [
-        "호그와트 7학년이 된 모리슨은 11살 때와는 완전히 다른 모습을 보입니다.",
-        "한때 무감각했던 소년은 이제 낭만적이고 다정한 청년으로 성장했습니다.",
-        "'인간은 운명조차 변화시킬 수 있다'는 새로운 신념을 가지게 되었으며, 이는 11살 때의 '모든 미래는 불변한다'는 명제와 정반대입니다.",
-        "후플푸프에서의 7년간 많은 친구들을 만나고, 퀴디치와 티타임을 통해 소중한 인연들을 쌓아왔습니다."
-      ],
-
       // 관계
       relationships: [
         { name: "엘로웬 모턴", initial: "E", description: "친구 (구)" },
@@ -195,28 +156,7 @@ export const characterData = {
       bgMusic: {
         youtubeId: "uGxab-AbiBc",
         title: "All Alone With You (Yoel Cover)"
-      },
-
-      // 갤러리
-      gallery: [
-        { image: "", alt: "17살 이미지 1" },
-        { image: "", alt: "17살 이미지 2" },
-        { image: "", alt: "17살 이미지 3" }
-      ],
-
-      // 관련 링크
-      links: [
-        {
-          icon: "external-link",
-          text: "프로필",
-          url: "https://docs.google.com/document/d/1SKDKcVinYIDvQbaD78O6YrXuPe-jx4L9KnJAOIpjcdI/edit?tab=t.rdir92x2dut4"
-        },
-        {
-          icon: "external-link",
-          text: "관련 작품",
-          url: "#"
-        }
-      ]
+      }
     },
 
     "29": {
@@ -235,8 +175,8 @@ export const characterData = {
       proposition: {
         number: "제 3 진리",
         kanji: "合",
-        description: "Vanity of vanities, saith the Preacher, vanity of vanities; <em>all is vanity.</em>",
-        isScripture: true
+        description: ["Vanity of vanities, saith the <em>Preacher</em>, vanity of vanities",
+                     "<em>all is vanity.</em>"]
       },
 
       // 한마디
@@ -255,13 +195,9 @@ export const characterData = {
       personality: {
         tags: ["#허무", "#무기력", "#상실"],
         description: [
-          "허무 / 무기력 / 상실",
           "앎은 사람과 사람간의 경계를 메운다.",
           "이해는 곧 배려이며 사랑이 되고 사회를 만든다.",
-          "그렇기에 앎의 부족은 관계를 끊어내는 철퇴가 된다.",
-          "29년간 똑같은 엔드롤을 바라보았으니",
-          "이제 그만 지루한 클리셰를 끊어낼 결단을 할 날이 오지 않았는가.",
-          "지독하다. 평생 해소되지않을 갈증을 안고서 걸어야하는 것."
+          "그렇기에 앎의 부족은 관계를 끊어내는 철퇴가 된다."
         ]
       },
 
@@ -279,19 +215,10 @@ export const characterData = {
         moodSong: { title: "가짜 얼굴", artist: "dongdang", url: "https://www.youtube.com/watch?v=qRKlNp_rowc" }
       },
 
-      // 배경 스토리
-      backstory: [
-        "모리슨 벨 라이어에서 아난케 에이와스 리드맨으로 이름을 바꾼 29세의 성인.",
-        "한때 운명을 바꿀 수 있다고 믿었던 낭만적인 청년은 이제 '모든 것이 헛되다'는 허무주의에 빠져있습니다.",
-        "불사조 기사단의 일원으로 마법 세계를 지키기 위해 싸우지만, 깊은 상실감과 무기력함을 느끼고 있습니다.",
-        "많은 것을 겪고 잃으며, 11살과 17살 때의 자신과는 완전히 다른 사람이 되었습니다."
-      ],
-
       // 관계
       relationships: [
         { name: "아이라 하이델베르크", initial: "A", description: "관계 서술을 여기에 작성합니다." },
         { name: "에이미 패터슨", initial: "E", description: "관계 서술을 여기에 작성합니다." },
-        { name: "타테우스 룩소스 페스틸란스", initial: "T", description: "관계 서술을 여기에 작성합니다." },
         { name: "니콜라스 볼트", initial: "N", description: "관계 서술을 여기에 작성합니다." },
         { name: "루카스 폰 아웃포스트", initial: "L", description: "관계 서술을 여기에 작성합니다." }
       ],
@@ -300,28 +227,7 @@ export const characterData = {
       bgMusic: {
         youtubeId: "qRKlNp_rowc",
         title: "가짜 얼굴 (dongdang cover)"
-      },
-
-      // 갤러리
-      gallery: [
-        { image: "", alt: "29살 이미지 1" },
-        { image: "", alt: "29살 이미지 2" },
-        { image: "", alt: "29살 이미지 3" }
-      ],
-
-      // 관련 링크
-      links: [
-        {
-          icon: "external-link",
-          text: "프로필",
-          url: "https://docs.google.com/document/d/1SKDKcVinYIDvQbaD78O6YrXuPe-jx4L9KnJAOIpjcdI/edit?tab=t.6cyhwu305573"
-        },
-        {
-          icon: "external-link",
-          text: "관련 작품",
-          url: "#"
-        }
-      ]
+      }
     }
   }
 };
