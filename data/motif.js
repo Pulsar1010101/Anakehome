@@ -105,7 +105,7 @@ export const motifData = [
     {
         image: "https://i.namu.wiki/i/yFGQ-vdqekYCJqJrJtqEvJGWDO9tFgcP-7Laculm3LYLQWdZSZLTzj6jA7FHzRddOhz5vow7Rrgt9-BCT1KbFhGFZq87fak0g8lwNwKSNToyHNLk8_voGrBPLpgYy5lb_izVrqL29vVgemRG-zyYOw.webp",
         title: "유러스 홈즈",
-        source: "셜록 홈즈",
+        source: "셜록",
         description: "셰린포드에 감금되어 있으며, 간단한 대화로도 사람들을 수렁에 빠뜨리고 지배하는 그 위험성으로 인해 소통이 차단되어 있다. 셰린포드에서 마이크로프트 외에 어떤 누구도 그녀와 면회는커녕 대화마저 금지되어 있었다."
     }
 ];
