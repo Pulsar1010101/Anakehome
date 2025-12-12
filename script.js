@@ -550,7 +550,9 @@ function renderCharacterProfile(age = currentAge) {
                     </div>
                     <div class="relationship-info">
                         <div class="relationship-name">${rel.name}</div>
-                        <div class="relationship-description">${rel.description || ''}</div>
+                        ${rel.description ? `<div class="relationship-description">${rel.description}</div>` : ''}
+                        ${rel.detail ? `<div class="relationship-detail">${rel.detail}</div>` : ''}
+                        ${rel.quote ? `<div class="relationship-quote">"${rel.quote}"</div>` : ''}
                     </div>
                 </div>`
             ).join('');

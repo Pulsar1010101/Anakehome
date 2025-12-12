@@ -580,6 +580,21 @@
 .relationship-description {
     font-size: 11px;
     color: var(--char-text-secondary);
+    margin-bottom: 4px;
+}
+
+.relationship-detail {
+    font-size: 11px;
+    color: var(--char-text-secondary);
+    line-height: 1.5;
+    margin-top: 4px;
+}
+
+.relationship-quote {
+    font-size: 10px;
+    color: var(--char-text-muted);
+    font-style: italic;
+    margin-top: 6px;
 }
 
 .relationships-empty {
