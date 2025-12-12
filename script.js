@@ -741,11 +741,13 @@ function updateDashboardBgMusic(age) {
             bgPlayers['dashboard'].pauseVideo();
         }
 
-        // 새 비디오 로드
-        bgPlayers['dashboard'].loadVideoById({
-            videoId: char.bgMusic.youtubeId,
+        // 새 플레이리스트 로드 (무한 반복을 위해)
+        bgPlayers['dashboard'].cuePlaylist({
+            playlist: [char.bgMusic.youtubeId],
+            index: 0,
             startSeconds: 0
         });
+        bgPlayers['dashboard'].setLoop(true);
 
         // 대시보드가 활성화되어 있으면 재생
         if (currentBgPlayer === 'dashboard') {
