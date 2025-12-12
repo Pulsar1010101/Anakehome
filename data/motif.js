@@ -19,52 +19,52 @@ export const motifData = [
         description: "참을성이 강해서 기본적으로 누군가를 원망하는 일이 없고 자책만 쌓여가는 아가씨."
     },
     {
-        image: "",
+        image: "https://audiocomics.kr/AudioComics/Comics/Comic_627/Episode_14028/MSAH2_AA.jpg",
         title: "멜키오르 리오그난",
-        source: "문송안함",
-        description: ""
+        source: "문과라도 안 죄송한 이세계에 감",
+        description: "알비온 왕국의 1왕자. 감히 인간이 범접할 수 없는 기운을 풍기며 백금발 머리칼에 청록빛과 주홍빛이 공존하는 홍채 등 가히 신적인 외모를 가진 남자다."
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/QqmLh9vT4m5ZrHubz_bErWGzUAZk1Bx7zrwY-16dJvm97QBr2gs_qCGYpF8Zb2ZWa3XhFnyw9FpvmFlQeakRjUhulMniFJUdEpBMHxDpFKvQFoXhHp-suXe4qFJIigPcwt7IdD02Do-LHrC9qhP2jw.webp",
         title: "프리스티스",
         source: "명일방주",
-        description: ""
+        description: "명일방주의 등장인물이자 메인 스토리 3부의 메인 빌런."
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/qFUkdk-gBc5PfZNDeQg7y3aCx0ss4fg2mHvZtVtS_TvuRIk8pYqw32iIeuVrvifXeTx_3IOsTmfIN-e1bfzezgsrr8nFvkUmlWpm9EWjEYxIcOAYMfbv6FW3jK_55eqAHnEdfGPDmRDeDQEJXeEkBA.webp",
         title: "히이라기 마히루",
         source: "종말의 세라프",
-        description: ""
+        description: "만화 종말의 세라프의 등장인물이자 소설판 <이치노세 구렌 - 16세의 파멸> 의 히로인. "
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/wZ4A8KCdqi1YTkM48gJzIn2NaDeH7io-MWZEeRy_7P0zwZ7JVwtfEi6qR-mfT2K26ugBXX6kT_-GEKdEoWeuqg.webp",
         title: "이졸데 디터스트로프",
         source: "Reverse:1999",
-        description: ""
+        description: "억압된 자아와 불행한 과거 때문인지 자신에게 친절하게 대해주는 사람에게 의존적이고 애정을 갈구하는 모습을 보인다. 6장에서는 자신의 행동에 카카니아가 기뻐할 줄 알고 환희하다가도 그녀의 반응이 좋지 않자 애처롭게 매달리고 애원하며, 버틴의 가방에 온 뒤에도 카카니아를 찾거나 버틴이 자신을 보러 오지 않을까 봐 불안해하며 의존적인 모습을 보인다."
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/hNzsDU_8S7n1t_qu5J0LKDKGIrk-5bXwM4XkKlC0Bx8uO2948fGB2r5xG4Exd-Ei4AomNu_kui5D1FZZNlAKReI84KaOoMwY5udubh6eo7vMki_FWbEn6FnmsOr2SuCjW0nWXyrFTBDeIZ8n5Bpgwg.webp",
         title: "공주",
         source: "Slay the Princess",
-        description: ""
+        description: "용사가 처치해야 하는 인물. 오랜 시간 동안 숲 속 길 끝의 한 오두막의 지하실에 갇혀 있으며, 손목에는 무거운 족쇄가 걸려 있다."
     },
     {
-        image: "",
-        title: "사토의 이모",
+        image: "https://i.namu.wiki/i/C7xZdxkLGy823jKOaucdqUD3Qffs77i1XXjaEPCcKHppgK4CX6ab-e8HEZD0LfAuqyUv-pJI89hRwFiwLnbtP57Yq2dT5f1ngRxzb_H-P9jK9nQ_HmUUrTdfJArmJUyggeZ_EzOMNBIPc9s6-Gk7RQ.webp",
+        title: "사토의 친척 아주머니",
         source: "해피 슈가 라이프",
-        description: ""
+        description: "주인공 마츠자카 사토의 유일한 혈육"
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/HrHSnO838C20sJhZO9N9ifK6MvvbnYQQAVfc0EA5IKXbNXhwlfphcL88WYxDdbPpcjoRwfyxQBMIcBD-Ys085gQiQs5aMtpu6n0sBsM5wubGyIGiWbY5Bqf3Z81jZoi0_GzMpQNp2uhnv3Tpps7RXw.webp",
         title: "메데이아",
         source: "Fate Stay Night",
-        description: ""
+        description: "그리스 신화에서 마녀의 대명사로 취급받는 불운의 왕녀."
     },
     {
-        image: "",
+        image: "https://i.namu.wiki/i/R-KL6QqMWLPa79JlELi_Tbnp-W5mKoAn-DcizmlSCAzVnyyIyPm6jD6v481EnVWEtlfxx7MJPvlOMNBhY1tMG4LuHnsTnfK_MMbXDOngMy2HqyGwqyJfii174vpHEXzNmc1AGiOjCR5UzFDEjO3quw.webp",
         title: "사죠 마나카",
-        source: "창은의 프래그먼트",
-        description: ""
+        source: "Fate/Prototype 창은의 프래그먼트",
+        description: "역대 최고 수준의 재능을 가진 천재 마술사."
     },
     {
         image: "",
