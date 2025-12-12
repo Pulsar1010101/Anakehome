@@ -147,9 +147,27 @@ export const characterData = {
 
       // 관계
       relationships: [
-        { name: "엘로웬 모턴", initial: "E", description: "친구 (구)" },
-        { name: "아멜리아 레이젠", initial: "A", description: "티타임 메이트" },
-        { name: "시에라 벤더미어", initial: "S", description: "퀴디치 메이트" }
+        {
+          name: "엘로웬 모턴",
+          initial: "E",
+          description: "친구 (구)",
+          detail: "친한 사이로 붙어다니는걸 자주 볼수있었으나, 최근 몇 년 새 관계가 소원해졌다. 졸업전까지 다시 친해질수 있을까?",
+          quote: "글쎄."
+        },
+        {
+          name: "아멜리아 레이젠",
+          initial: "A",
+          description: "티타임메이트",
+          detail: "그에게 차를 가르쳐달라고 청했다. 이 관계가 이어져 아직까지도 즐겁게 티타임을 가지는 관계로 남아있다.",
+          quote: "좋은 얼그레이를 받았거든, 괜찮다면 같이 마시자."
+        },
+        {
+          name: "시에라 벤더미어",
+          initial: "S",
+          description: "관람메이트",
+          detail: "퀴디치 훌리건인 그를 따라 몇번 관람을 간 적이 있었다. 모리슨은 곁에서 이래저래 규칙을 숙지하고 스포츠에 대해 공부를 할수있는 유익한 시간이었다고 평했다.",
+          quote: "이번에는 누가 이길거라고 생각해?"
+        }
       ],
 
       // 배경 음악
@@ -217,10 +235,30 @@ export const characterData = {
 
       // 관계
       relationships: [
-        { name: "아이라 하이델베르크", initial: "A", description: "관계 서술을 여기에 작성합니다." },
-        { name: "에이미 패터슨", initial: "E", description: "관계 서술을 여기에 작성합니다." },
-        { name: "니콜라스 볼트", initial: "N", description: "관계 서술을 여기에 작성합니다." },
-        { name: "루카스 폰 아웃포스트", initial: "L", description: "관계 서술을 여기에 작성합니다." }
+        {
+          name: "아이라 하이델베르크",
+          initial: "A",
+          description: "친한 친구",
+          detail: "아이의 대부모를 맡기고 결정적일때마다 여러 번 그 손에 맡기기까지 했다. 아직까지 교류를 이어나가고 있으나 이 관계가 이전과 같은 형태인지는 그들만이 알것이다."
+        },
+        {
+          name: "에이미 패터슨",
+          initial: "E",
+          description: "후원자",
+          detail: "입학부터 그는 언제나 조각가로서의 에이미를 응원했고 졸업 이후에도 마찬가지였다. 그는 언제나 에이미의 큰손이 되고자 하였으며 그건 그 집이 불길에 휩싸일때까지 지속되었다."
+        },
+        {
+          name: "니콜라스 볼트",
+          initial: "N",
+          description: "친한 친구",
+          detail: "아이를 위한 장난감 의뢰를 넣는등 교류를 이어갔다. 그가 만드는 해괴한 것들이 현재 그들 모자의 소소한 즐거움중 하나였다."
+        },
+        {
+          name: "루카스 폰 아웃포스트",
+          initial: "L",
+          description: "체스메이트",
+          detail: "상황과 상관없이 그들은 언제나 체스판 위에서 합을 나누었고 그 시간은 잠시간의 자유가 되는 기분이었다. 전쟁으로 인해 드물어진것이 아쉬울정도로 말이다."
+        }
       ],
 
       // 배경 음악
