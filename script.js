@@ -505,11 +505,15 @@ function renderCharacterProfile(age = currentAge) {
     const magicInfoContent = document.getElementById('magic-info-content');
     if (magicInfoContent) {
         const themeColor = profile.themeColorAccent || profile.themeColor;
+        const moodSong = profile.magic.moodSong;
+        const moodSongValue = moodSong.url
+            ? `<a href="${moodSong.url}" target="_blank" rel="noopener noreferrer" class="mood-song-link">${moodSong.title} (${moodSong.artist})</a>`
+            : `${moodSong.title} (${moodSong.artist})`;
         const magicInfo = [
             { label: '지팡이', value: `${common.wand.wood} / ${common.wand.core}` },
             { label: '길이 / 유연성', value: `${common.wand.length} / ${common.wand.flexibility}` },
             { label: '테마색', value: themeColor, color: themeColor },
-            { label: '무드곡', value: `${profile.magic.moodSong.title} (${profile.magic.moodSong.artist})`, muted: true }
+            { label: '무드곡', value: moodSongValue, muted: true, isHtml: true }
         ];
 
         magicInfoContent.innerHTML = magicInfo.map(info =>
