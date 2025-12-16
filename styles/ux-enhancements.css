@@ -13,16 +13,20 @@
     justify-content: center;
     padding: 3rem;
     gap: 1rem;
-    color: #888;
+    color: var(--text-dim, #444);
 }
 
 .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid rgba(255, 255, 255, 0.1);
-    border-top-color: var(--highlight-color, #B2B0E8);
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--border-color, rgba(255, 255, 255, 0.04));
+    border-top-color: var(--text-secondary, #666);
     border-radius: 50%;
     animation: spin 0.8s linear infinite;
+}
+
+.loading-spinner span {
+    font-size: 0.8rem;
 }
 
 @keyframes spin {
@@ -34,7 +38,7 @@
     padding: 0.75rem 1rem;
     position: sticky;
     top: 0;
-    background: inherit;
+    background: var(--surface-color, #111114);
     z-index: 10;
 }
 
@@ -46,47 +50,52 @@
 
 #playlist-search {
     width: 100%;
-    padding: 0.6rem 0.75rem 0.6rem 2.25rem;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    color: #fff;
-    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem 0.5rem 2rem;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid var(--border-color, rgba(255, 255, 255, 0.04));
+    color: var(--text-color, #e8e6e3);
+    font-size: 0.8rem;
     outline: none;
-    transition: border-color 0.2s, background 0.2s;
+    transition: border-color 0.2s;
 }
 
 #playlist-search::placeholder {
-    color: #666;
+    color: var(--text-dim, #444);
 }
 
 #playlist-search:focus {
-    border-color: var(--highlight-color, #B2B0E8);
-    background: rgba(255, 255, 255, 0.08);
+    border-bottom-color: var(--highlight-color, #B2B0E8);
 }
 
 .playlist-search-inner::before {
     content: '';
     position: absolute;
-    left: 0.75rem;
-    width: 14px;
-    height: 14px;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23666'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
+    left: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23444'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z'/%3E%3C/svg%3E");
     background-size: contain;
     pointer-events: none;
+    opacity: 0.6;
+}
+
+#playlist-search:focus + .playlist-search-inner::before,
+.playlist-search-inner:focus-within::before {
+    opacity: 1;
 }
 
 #search-result-count {
     display: none;
-    margin-top: 0.5rem;
-    font-size: 0.75rem;
-    color: #888;
+    margin-top: 0.4rem;
+    font-size: 0.7rem;
+    color: var(--text-dim, #444);
     text-align: right;
 }
 
 /* 검색 하이라이트 */
 .song-info mark {
-    background: rgba(var(--highlight-rgb, 178, 176, 232), 0.4);
+    background: rgba(var(--highlight-rgb, 178, 176, 232), 0.25);
     color: inherit;
     border-radius: 2px;
     padding: 0 2px;
@@ -98,8 +107,8 @@
     align-items: center;
     justify-content: center;
     padding: 3rem;
-    color: #666;
-    font-size: 0.875rem;
+    color: var(--text-dim, #444);
+    font-size: 0.8rem;
 }
 
 /* 재생 인디케이터 (이퀄라이저 바) */
@@ -109,13 +118,13 @@
 
 .song-playing-indicator {
     position: absolute;
-    left: 8px;
+    left: 6px;
     top: 50%;
     transform: translateY(-50%);
     display: flex;
     align-items: flex-end;
     gap: 2px;
-    height: 16px;
+    height: 14px;
     opacity: 0;
     transition: opacity 0.2s;
 }
@@ -125,13 +134,14 @@
 }
 
 .song-playing-indicator span {
-    width: 3px;
-    background: var(--highlight-color, #B2B0E8);
+    width: 2px;
+    background: var(--text-secondary, #666);
     border-radius: 1px;
-    height: 4px;
+    height: 3px;
 }
 
 .song-playing-indicator.playing span {
+    background: var(--highlight-color, #B2B0E8);
     animation: equalizer 0.8s ease-in-out infinite;
 }
 
@@ -146,13 +156,13 @@
 }
 
 @keyframes equalizer {
-    0%, 100% { height: 4px; }
-    50% { height: 14px; }
+    0%, 100% { height: 3px; }
+    50% { height: 12px; }
 }
 
 /* 인디케이터 있을 때 이미지 왼쪽 여백 */
 .song-item.active img {
-    margin-left: 20px;
+    margin-left: 16px;
 }
 
 /* 키보드 단축키 힌트 (선택적) */
@@ -160,11 +170,12 @@
     position: fixed;
     bottom: 1rem;
     right: 1rem;
-    padding: 0.5rem 0.75rem;
-    background: rgba(0, 0, 0, 0.8);
-    border-radius: 6px;
-    font-size: 0.75rem;
-    color: #888;
+    padding: 0.4rem 0.6rem;
+    background: var(--bg-tertiary, #1a1a1e);
+    border: 1px solid var(--border-color, rgba(255, 255, 255, 0.04));
+    border-radius: 4px;
+    font-size: 0.7rem;
+    color: var(--text-dim, #444);
     pointer-events: none;
     opacity: 0;
     transition: opacity 0.3s;
@@ -176,9 +187,9 @@
 
 .keyboard-hint kbd {
     display: inline-block;
-    padding: 2px 6px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 3px;
+    padding: 1px 4px;
+    background: var(--border-color, rgba(255, 255, 255, 0.04));
+    border-radius: 2px;
     font-family: inherit;
     margin: 0 2px;
 }
@@ -191,13 +202,13 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    margin-top: 0.75rem;
+    margin-top: 0.5rem;
 }
 
 .btn-volume {
     background: none;
     border: none;
-    color: var(--text-secondary, #666);
+    color: var(--text-dim, #444);
     cursor: pointer;
     padding: 4px;
     display: flex;
@@ -207,18 +218,18 @@
 }
 
 .btn-volume:hover {
-    color: var(--text-color, #e8e6e3);
+    color: var(--text-secondary, #666);
 }
 
 .btn-volume.muted {
-    color: var(--highlight-color, #B2B0E8);
+    color: var(--text-dim, #444);
 }
 
 .volume-slider-wrap {
     position: relative;
-    width: 100px;
-    height: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    width: 80px;
+    height: 3px;
+    background: var(--border-color, rgba(255, 255, 255, 0.04));
     border-radius: 2px;
 }
 
@@ -227,7 +238,7 @@
     top: 0;
     left: 0;
     height: 100%;
-    background: var(--highlight-color, #B2B0E8);
+    background: var(--text-secondary, #666);
     border-radius: 2px;
     pointer-events: none;
     transition: width 0.1s;
@@ -243,13 +254,17 @@
     margin: 0;
     opacity: 0;
     cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
 }
 
-/* 호버 시 슬라이더 보이기 */
-.volume-slider-wrap:hover .volume-fill,
-.volume-slider-wrap:focus-within .volume-fill {
+/* 호버 시 강조 */
+.volume-control:hover .volume-fill {
     background: var(--highlight-color, #B2B0E8);
-    filter: brightness(1.2);
+}
+
+.volume-control:hover .btn-volume {
+    color: var(--text-secondary, #666);
 }
 
 /* ============================================================
@@ -257,27 +272,23 @@
    ============================================================ */
 .content-section {
     opacity: 1;
-    transform: translateX(0);
-    transition: opacity 0.15s ease-out, transform 0.15s ease-out;
+    transition: opacity 0.15s ease-out;
 }
 
 .content-section.section-exit {
     opacity: 0;
-    transform: translateX(-20px);
 }
 
 .content-section.section-enter {
-    animation: sectionEnter 0.3s ease-out forwards;
+    animation: sectionEnter 0.2s ease-out forwards;
 }
 
 @keyframes sectionEnter {
     from {
         opacity: 0;
-        transform: translateX(20px);
     }
     to {
         opacity: 1;
-        transform: translateX(0);
     }
 }
 
@@ -293,24 +304,17 @@
 .lyrics-toggle-btn {
     background: none;
     border: none;
-    color: var(--text-secondary, #666);
+    color: var(--text-dim, #444);
     cursor: pointer;
-    padding: 4px;
+    padding: 2px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.2s, transform 0.2s;
-    border-radius: 4px;
+    transition: color 0.2s;
 }
 
 .lyrics-toggle-btn:hover {
-    color: var(--text-color, #e8e6e3);
-    background: rgba(255, 255, 255, 0.05);
-}
-
-.zone-lyrics {
-    transition: max-height 0.3s ease, opacity 0.3s ease;
-    overflow: hidden;
+    color: var(--text-secondary, #666);
 }
 
 .zone-lyrics #lyrics-content {
@@ -374,12 +378,13 @@
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.25rem;
-    background: rgba(239, 68, 68, 0.95);
-    color: #fff;
-    border-radius: 8px;
-    font-size: 0.875rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    padding: 0.6rem 1rem;
+    background: var(--bg-tertiary, #1a1a1e);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    color: #f87171;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     opacity: 0;
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 9999;
@@ -392,9 +397,10 @@
 
 .error-toast i {
     flex-shrink: 0;
+    opacity: 0.8;
 }
 
-/* 로드 에러 개선 */
+/* 로드 에러 */
 .load-error {
     display: flex;
     flex-direction: column;
@@ -402,25 +408,30 @@
     justify-content: center;
     padding: 3rem;
     gap: 1rem;
-    color: #f87171;
+    color: var(--text-secondary, #666);
     text-align: center;
 }
 
 .load-error i {
-    opacity: 0.7;
+    opacity: 0.5;
+}
+
+.load-error p {
+    font-size: 0.85rem;
 }
 
 .load-error button {
-    padding: 0.5rem 1.25rem;
-    background: rgba(248, 113, 113, 0.15);
-    border: 1px solid rgba(248, 113, 113, 0.3);
-    border-radius: 6px;
-    color: #f87171;
+    padding: 0.4rem 1rem;
+    background: transparent;
+    border: 1px solid var(--border-light, rgba(255, 255, 255, 0.08));
+    border-radius: 4px;
+    color: var(--text-secondary, #666);
+    font-size: 0.8rem;
     cursor: pointer;
-    transition: background 0.2s, border-color 0.2s;
+    transition: border-color 0.2s, color 0.2s;
 }
 
 .load-error button:hover {
-    background: rgba(248, 113, 113, 0.25);
-    border-color: rgba(248, 113, 113, 0.5);
+    border-color: var(--text-secondary, #666);
+    color: var(--text-color, #e8e6e3);
 }
