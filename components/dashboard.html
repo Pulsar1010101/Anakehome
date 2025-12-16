@@ -1,15 +1,10 @@
-<div class="character-profile" data-age="11">
-    <!-- 배경 그라데이션 -->
+<div class="character-profile">
     <div class="profile-glow"></div>
 
     <div class="character-container">
-        <!-- 나이 선택 탭 -->
+        <!-- 나이 선택 탭 (동적 생성) -->
         <div class="age-tabs">
-            <div class="age-tabs-inner">
-                <button class="age-tab active" data-age="11">1학년 (11세)</button>
-                <button class="age-tab" data-age="17">7학년 (17세)</button>
-                <button class="age-tab" data-age="29">성인 (29세)</button>
-            </div>
+            <div class="age-tabs-inner" id="age-tabs-container"></div>
         </div>
 
         <!-- 헤더 3열 레이아웃 -->
@@ -17,15 +12,15 @@
             <!-- 좌측: 명제 + 한마디 -->
             <div class="header-left">
                 <div class="proposition">
-                    <div class="proposition-number" id="prop-number">제 1 명제</div>
-                    <div class="proposition-kanji" id="prop-kanji">「 定 」</div>
-                    <div class="proposition-description" id="prop-desc">모든 <em>미래</em>는 불변한다.</div>
+                    <div class="proposition-number" id="prop-number"></div>
+                    <div class="proposition-kanji" id="prop-kanji"></div>
+                    <div class="proposition-description" id="prop-desc"></div>
                 </div>
 
                 <div class="header-divider"></div>
 
                 <div class="quote-section">
-                    <div class="quote-main" id="quote-main">" <em>데자뷔</em>.... "</div>
+                    <div class="quote-main" id="quote-main"></div>
                     <div class="quote-sub" id="quote-sub"></div>
                     <div class="quote-description" id="quote-desc"></div>
                 </div>
@@ -38,7 +33,7 @@
                     <div class="avatar-ring avatar-ring-inner"></div>
                     <div class="avatar-image">
                         <img src="" alt="캐릭터 이미지" id="char-avatar">
-                        <span class="avatar-placeholder" id="avatar-placeholder">외관 이미지</span>
+                        <span class="avatar-placeholder" id="avatar-placeholder">이미지</span>
                     </div>
                 </div>
                 <div class="avatar-credit" id="avatar-credit"></div>
@@ -48,12 +43,12 @@
             <div class="header-right">
                 <div class="name-section">
                     <div class="name-label">NAME</div>
-                    <div class="name-kr" id="char-name-kr">모리슨 벨 라이어</div>
-                    <div class="name-en" id="char-name-en">MORRISON BELL LIAR</div>
+                    <div class="name-kr" id="char-name-kr"></div>
+                    <div class="name-en" id="char-name-en"></div>
                 </div>
 
-                <div class="affiliation-badge" id="affiliation-badge" data-type="house">
-                    <span id="affiliation-name">HUFFLEPUFF</span>
+                <div class="affiliation-badge" id="affiliation-badge">
+                    <span id="affiliation-name"></span>
                 </div>
 
                 <div class="header-divider"></div>
@@ -67,19 +62,16 @@
 
         <!-- 정보 카드 영역 -->
         <div class="info-cards">
-            <!-- BASIC INFO -->
             <div class="info-card">
                 <div class="info-card-title">BASIC INFO</div>
                 <div class="info-card-content" id="basic-info-content"></div>
             </div>
 
-            <!-- BIRTH INFO -->
             <div class="info-card">
                 <div class="info-card-title">BIRTH INFO</div>
                 <div class="info-card-content" id="birth-info-content"></div>
             </div>
 
-            <!-- MAGIC INFO -->
             <div class="info-card">
                 <div class="info-card-title">MAGIC INFO</div>
                 <div class="info-card-content" id="magic-info-content"></div>
@@ -92,9 +84,7 @@
                 <span class="section-title">RELATIONSHIPS</span>
                 <div class="section-line"></div>
             </div>
-            <div class="relationships-grid" id="relationships-grid">
-                <p class="relationships-empty">등록된 관계가 없습니다.</p>
-            </div>
+            <div class="relationships-grid" id="relationships-grid"></div>
         </div>
     </div>
 
