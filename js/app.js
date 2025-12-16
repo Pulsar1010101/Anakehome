@@ -6,7 +6,7 @@ import { playlistData } from '../data/playlist.js';
 import { config } from '../data/config.js';
 import { state, getDOM, refreshDOM } from './store.js';
 import { showLoading, debounce, renderIcons, safeFetch, showError } from './utils.js';
-import { renderPlaylist, updateSearchResultCount, renderCharacterProfile, renderOwnerProfile, renderMotifPage } from './renderer.js';
+import { renderPlaylist, updateSearchResultCount, renderCharacterProfile, renderOwnerProfile, renderMotifPage, renderAgeTabs } from './renderer.js';
 import { 
     loadYouTubeAPI, 
     setupYouTubeReady, 
@@ -341,6 +341,7 @@ export async function initApp() {
     renderIcons();
 
     // 렌더링
+    renderAgeTabs();
     renderCharacterProfile();
     renderOwnerProfile();
     renderMotifPage();
