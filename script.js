@@ -554,6 +554,36 @@ function stopProgressLoop() {
 }
 
 // ============================================================
+// [7.5] 가사 토글
+// ============================================================
+function setupLyricsToggle() {
+    const lyricsSection = document.querySelector('.zone-lyrics');
+    const lyricsTitle = document.querySelector('.lyrics-title');
+    
+    if (!lyricsSection || !lyricsTitle) return;
+    
+    // 토글 버튼 추가
+    lyricsTitle.innerHTML = `
+        <span>Lyrics / Info</span>
+        <button class="lyrics-toggle-btn" id="btn-lyrics-toggle">
+            <i data-lucide="chevron-down" size="16"></i>
+        </button>
+    `;
+    
+    const toggleBtn = document.getElementById('btn-lyrics-toggle');
+    let isCollapsed = false;
+    
+    toggleBtn.addEventListener('click', () => {
+        isCollapsed = !isCollapsed;
+        lyricsSection.classList.toggle('collapsed', isCollapsed);
+        toggleBtn.innerHTML = `<i data-lucide="${isCollapsed ? 'chevron-up' : 'chevron-down'}" size="16"></i>`;
+        if (typeof lucide !== 'undefined') lucide.createIcons();
+    });
+    
+    if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+// ============================================================
 // [8] 키보드 단축키
 // ============================================================
 function setupKeyboardShortcuts() {
@@ -595,23 +625,38 @@ function setupKeyboardShortcuts() {
 // [9] 섹션 전환
 // ============================================================
 function switchSection(sectionName) {
-    document.querySelectorAll('.content-section').forEach(section => {
-        section.classList.remove('active');
-    });
+    const currentSection = document.querySelector('.content-section.active');
+    const targetSection = document.getElementById(`section-${sectionName}`);
+    
+    if (!targetSection || currentSection === targetSection) return;
+    
+    // 메뉴 아이템 업데이트
     document.querySelectorAll('.menu-item').forEach(item => {
         item.classList.remove('active');
     });
-
-    const targetSection = document.getElementById(`section-${sectionName}`);
-    if (targetSection) {
-        targetSection.classList.add('active');
-    }
-
     const targetMenuItem = document.querySelector(`.menu-item[data-section="${sectionName}"]`);
     if (targetMenuItem) {
         targetMenuItem.classList.add('active');
     }
+    
+    // 애니메이션 적용
+    if (currentSection) {
+        currentSection.classList.add('section-exit');
+        
+        setTimeout(() => {
+            currentSection.classList.remove('active', 'section-exit');
+            targetSection.classList.add('active', 'section-enter');
+            
+            // 진입 애니메이션 후 클래스 제거
+            setTimeout(() => {
+                targetSection.classList.remove('section-enter');
+            }, 300);
+        }, 150);
+    } else {
+        targetSection.classList.add('active');
+    }
 
+    // 배경 음악 처리
     if (config.bgMusicSections.includes(sectionName)) {
         playBackgroundMusic(sectionName);
     } else if (config.keepBgMusicSections && config.keepBgMusicSections.includes(sectionName)) {
@@ -631,6 +676,8 @@ function setupAgeTabListeners() {
     ageTabs.forEach(tab => {
         tab.addEventListener('click', () => {
             const selectedAge = parseInt(tab.getAttribute('data-age'));
+            if (selectedAge === currentAge) return;
+            
             currentAge = selectedAge;
 
             ageTabs.forEach(t => t.classList.remove('active'));
@@ -638,10 +685,19 @@ function setupAgeTabListeners() {
 
             const profileContainer = document.querySelector('.character-profile');
             if (profileContainer) {
+                // 트랜지션 시작
+                profileContainer.classList.add('switching');
                 profileContainer.setAttribute('data-age', selectedAge);
+                
+                // 트랜지션 후 렌더링
+                setTimeout(() => {
+                    renderCharacterProfile(selectedAge);
+                    profileContainer.classList.remove('switching');
+                }, 150);
+            } else {
+                renderCharacterProfile(selectedAge);
             }
 
-            renderCharacterProfile(selectedAge);
             updateDashboardBgMusic(selectedAge);
         });
     });
@@ -1074,6 +1130,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     setupAgeTabListeners();
     setupPlaylistSearch();
     setupVolumeControl();
+    setupLyricsToggle();
     setupKeyboardShortcuts();
 
     // 섹션 전환 이벤트
