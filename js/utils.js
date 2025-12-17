@@ -2,6 +2,38 @@
 // 유틸리티 함수
 // ============================================================
 
+import { config } from '../data/config.js'; // [추가] config 가져오기
+
+/**
+ * [NEW] 테마 설정 적용 (config.js -> CSS 변수 주입)
+ */
+export function applyThemeSettings() {
+    const root = document.documentElement;
+    const colors = config.theme?.colors;
+    const features = config.features;
+
+    // 1. 색상 주입
+    if (colors) {
+        if (colors.background) root.style.setProperty('--bg-color', colors.background);
+        if (colors.secondary) root.style.setProperty('--bg-secondary', colors.secondary);
+        if (colors.tertiary) root.style.setProperty('--bg-tertiary', colors.tertiary);
+        if (colors.text) root.style.setProperty('--text-color', colors.text);
+        if (colors.highlight) root.style.setProperty('--highlight-color', colors.highlight);
+        if (colors.border) root.style.setProperty('--border-color', colors.border);
+    }
+
+    // 2. 기능 제어 (예: 나이 탭 숨기기)
+    if (features && features.showAgeTabs === false) {
+        // DOM이 로드된 후에 스타일을 추가하거나 요소를 숨깁니다.
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .dashboard-age-tabs { display: none !important; }
+            .character-profile { margin-top: 0 !important; }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
 /**
  * 디바운스 함수
  * @param {Function} func - 실행할 함수
@@ -168,7 +200,6 @@ export function safeGet(obj, path, defaultValue = null) {
  * @param {number} duration
  */
 export function showError(message, duration = 3000) {
-    // 기존 토스트 제거
     const existing = document.querySelector('.error-toast');
     if (existing) existing.remove();
     
@@ -182,12 +213,10 @@ export function showError(message, duration = 3000) {
     
     renderIcons(0);
     
-    // 페이드 인
     requestAnimationFrame(() => {
         toast.classList.add('show');
     });
     
-    // 자동 제거
     setTimeout(() => {
         toast.classList.remove('show');
         setTimeout(() => toast.remove(), 300);
@@ -197,8 +226,7 @@ export function showError(message, duration = 3000) {
 /**
  * 데이터 유효성 검사
  * @param {*} data
- * @param {Object} schema - { field: { required: boolean, type: string } }
- * @returns {{ valid: boolean, errors: string[] }}
+ * @param {Object} schema
  */
 export function validateData(data, schema) {
     const errors = [];
