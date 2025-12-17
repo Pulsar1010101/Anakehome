@@ -6,6 +6,7 @@ import { playlistData } from '../data/playlist.js';
 import { characterData } from '../data/character.js';
 import { ownerData } from '../data/owner.js';
 import { motifData } from '../data/motif.js';
+import { config } from '../data/config.js'; // [필수] config import 확인
 import { state, getDOM } from './store.js';
 import { renderIcons, safeGet } from './utils.js';
 
@@ -13,9 +14,6 @@ import { renderIcons, safeGet } from './utils.js';
 // 플레이리스트 렌더링
 // ============================================================
 
-/**
- * 플레이리스트 렌더링
- */
 export function renderPlaylist() {
     const dom = getDOM();
     const container = dom.playlist.container;
@@ -41,7 +39,6 @@ export function renderPlaylist() {
         div.className = `song-item ${isActive ? 'active' : ''}`;
         div.setAttribute('data-original-index', originalIndex);
         div.onclick = () => {
-            // 동적 import로 순환 참조 방지
             import('./player.js').then(({ playSpecificSong }) => {
                 playSpecificSong(originalIndex);
             });
@@ -63,18 +60,12 @@ export function renderPlaylist() {
     scrollToCurrentSong();
 }
 
-/**
- * 검색어 하이라이트
- */
 function highlightSearchText(text) {
     if (!state.searchQuery || !text) return text;
     const regex = new RegExp(`(${state.searchQuery})`, 'gi');
     return text.replace(regex, '<mark>$1</mark>');
 }
 
-/**
- * 현재 재생 곡으로 스크롤
- */
 export function scrollToCurrentSong() {
     const dom = getDOM();
     const container = dom.playlist.container;
@@ -84,9 +75,6 @@ export function scrollToCurrentSong() {
     }
 }
 
-/**
- * 플레이리스트 활성 상태만 업데이트
- */
 export function updatePlaylistActiveState() {
     document.querySelectorAll('.song-item').forEach(el => {
         const originalIndex = parseInt(el.getAttribute('data-original-index'));
@@ -104,9 +92,6 @@ export function updatePlaylistActiveState() {
     scrollToCurrentSong();
 }
 
-/**
- * 검색 결과 카운트 업데이트
- */
 export function updateSearchResultCount() {
     const dom = getDOM();
     const countEl = dom.playlist.resultCount;
@@ -120,19 +105,12 @@ export function updateSearchResultCount() {
     }
 }
 
-/**
- * 곡 UI 로드
- */
 export function loadSongUI(index) {
     const song = playlistData[index];
-    if (!song) {
-        console.warn('곡 데이터 없음:', index);
-        return;
-    }
+    if (!song) return;
     
     const dom = getDOM();
     
-    // 앨범 아트
     if (dom.player.albumArt) {
         dom.player.albumArt.src = song.cover || '';
         dom.player.albumArt.onerror = () => {
@@ -140,23 +118,19 @@ export function loadSongUI(index) {
         };
     }
     
-    // 제목
     if (dom.player.title) {
         dom.player.title.innerText = song.title || 'Unknown Title';
         dom.player.title.onclick = song.link ? () => window.open(song.link, '_blank') : null;
     }
     
-    // 아티스트
     if (dom.player.artist) {
         dom.player.artist.innerText = song.artist || 'Unknown Artist';
     }
     
-    // 배경 이미지
     if (dom.player.zone && song.cover) {
         dom.player.zone.style.setProperty('--player-bg-image', `url('${song.cover}')`);
     }
     
-    // 해시태그
     if (dom.player.hashtags) {
         const tags = song.hashtags || [];
         dom.player.hashtags.innerHTML = tags.length > 0
@@ -164,7 +138,6 @@ export function loadSongUI(index) {
             : '';
     }
 
-    // 코멘트
     if (dom.player.comment) {
         const comment = (song.comment || '').trim();
         if (comment) {
@@ -175,10 +148,8 @@ export function loadSongUI(index) {
         }
     }
 
-    // 플레이리스트 활성 상태
     updatePlaylistActiveState();
 
-    // 가사
     if (dom.player.lyrics) {
         const lyrics = (song.lyrics || '').trim();
         if (lyrics) {
@@ -197,9 +168,6 @@ export function loadSongUI(index) {
 // 나이 탭 렌더링
 // ============================================================
 
-/**
- * 나이 탭 동적 생성
- */
 export function renderAgeTabs() {
     const container = document.getElementById('age-tabs-container');
     if (!container) return;
@@ -212,7 +180,6 @@ export function renderAgeTabs() {
         return;
     }
     
-    // 탭이 1개면 숨김
     if (ages.length === 1) {
         container.parentElement.style.display = 'none';
         state.currentAge = ages[0];
@@ -227,7 +194,6 @@ export function renderAgeTabs() {
         return `<button class="age-tab ${isActive ? 'active' : ''}" data-age="${age}">${label}</button>`;
     }).join('');
     
-    // 기본 나이 설정
     if (!state.currentAge || !profiles[state.currentAge]) {
         state.currentAge = ages[0];
     }
@@ -240,15 +206,12 @@ export function renderAgeTabs() {
 export function renderCharacterProfile(age = state.currentAge) {
     const profile = safeGet(characterData, `profiles.${age}`);
     const common = safeGet(characterData, 'common', {});
+    const labels = config.labels; // [NEW] 라벨 설정 가져오기
     
-    if (!profile) {
-        console.warn('프로필 데이터 없음:', age);
-        return;
-    }
+    if (!profile) return;
 
     const dom = getDOM();
     
-    // data-age 속성
     const profileContainer = dom.character.profile();
     if (profileContainer) {
         profileContainer.setAttribute('data-age', age);
@@ -262,7 +225,7 @@ export function renderCharacterProfile(age = state.currentAge) {
         dom.character.propDesc.classList.toggle('scripture-text', profile.proposition.isScripture);
     }
 
-    // 한마디 섹션
+    // 한마디
     if (dom.character.quoteMain) dom.character.quoteMain.innerHTML = `" ${profile.quote.main} "`;
     if (dom.character.quoteSub) {
         dom.character.quoteSub.textContent = profile.quote.sub || '';
@@ -274,22 +237,18 @@ export function renderCharacterProfile(age = state.currentAge) {
             .join('');
     }
 
-    // 캐릭터 이미지
+    // 아바타
     if (dom.character.avatar) {
         if (profile.image) {
             dom.character.avatar.src = profile.image;
-            if (dom.character.avatarPlaceholder) {
-                dom.character.avatarPlaceholder.style.display = 'none';
-            }
+            if (dom.character.avatarPlaceholder) dom.character.avatarPlaceholder.style.display = 'none';
         } else {
             dom.character.avatar.src = '';
-            if (dom.character.avatarPlaceholder) {
-                dom.character.avatarPlaceholder.style.display = 'block';
-            }
+            if (dom.character.avatarPlaceholder) dom.character.avatarPlaceholder.style.display = 'block';
         }
     }
 
-    // 이미지 출처
+    // 크레딧
     if (dom.character.avatarCredit) {
         if (profile.imageCredit?.text) {
             dom.character.avatarCredit.innerHTML = profile.imageCredit.url
@@ -303,11 +262,14 @@ export function renderCharacterProfile(age = state.currentAge) {
         dom.character.avatarCredit.style.display = 'block';
     }
 
-    // 이름
+    // 이름 & 소속
     if (dom.character.nameKr) dom.character.nameKr.textContent = profile.name.kr;
     if (dom.character.nameEn) dom.character.nameEn.textContent = profile.name.en;
+    
+    // [NEW] NAME 라벨 업데이트
+    const nameLabel = document.querySelector('.name-label');
+    if (nameLabel) nameLabel.textContent = labels.name;
 
-    // 소속
     if (dom.character.affiliationBadge) {
         dom.character.affiliationBadge.setAttribute('data-type', profile.affiliation.type);
     }
@@ -315,27 +277,30 @@ export function renderCharacterProfile(age = state.currentAge) {
         dom.character.affiliationName.textContent = profile.affiliation.name;
     }
 
-    // 성격 태그
+    // 성격
     if (dom.character.personalityTags) {
         dom.character.personalityTags.innerHTML = profile.personality.tags
             .map(tag => `<span class="personality-tag">${tag}</span>`)
             .join('');
     }
-
-    // 성격 설명
     if (dom.character.personalityDesc) {
         dom.character.personalityDesc.innerHTML = profile.personality.description
             .map(line => `<p>${line}</p>`)
             .join('');
     }
 
-    // BASIC INFO
+    // [NEW] 정보 카드 제목 및 내용 업데이트
+    const cardTitles = document.querySelectorAll('.info-card-title');
+    
+    // 1. BASIC INFO
+    if (cardTitles[0]) cardTitles[0].textContent = labels.basicInfo;
     if (dom.character.basicInfo) {
         const basicInfo = [
-            { label: '키 / 체중', value: `${profile.basic.height} / ${profile.basic.weight}` },
-            { label: profile.basic.house ? '기숙사' : '진영', value: profile.basic.house || profile.basic.faction },
-            { label: '국적', value: profile.basic.nationality },
-            { label: '혈통', value: common.bloodStatus }
+            { label: labels.heightWeight, value: `${profile.basic.height} / ${profile.basic.weight}` },
+            // 소속 라벨: 사용자가 config에서 지정했으면 그것 사용, 아니면 기존 로직(기숙사/진영)
+            { label: labels.affiliation || (profile.basic.house ? '기숙사' : '진영'), value: profile.basic.house || profile.basic.faction },
+            { label: labels.nationality, value: profile.basic.nationality },
+            { label: labels.blood, value: common.bloodStatus }
         ];
         dom.character.basicInfo.innerHTML = basicInfo.map(info =>
             `<div class="info-row">
@@ -345,13 +310,14 @@ export function renderCharacterProfile(age = state.currentAge) {
         ).join('');
     }
 
-    // BIRTH INFO
+    // 2. BIRTH INFO
+    if (cardTitles[1]) cardTitles[1].textContent = labels.birthInfo;
     if (dom.character.birthInfo) {
         const birthInfo = [
-            { label: '생일', value: common.birthday },
-            { label: '탄생화 / 탄생목', value: `${common.birthFlower} / ${common.birthTree}` },
-            { label: '탄생석', value: common.birthStone },
-            { label: '탄생색', value: common.birthColor.name, color: common.birthColor.hex }
+            { label: labels.birthday, value: common.birthday },
+            { label: labels.birthFlowerTree, value: `${common.birthFlower} / ${common.birthTree}` },
+            { label: labels.birthStone, value: common.birthStone },
+            { label: labels.birthColor, value: common.birthColor.name, color: common.birthColor.hex }
         ];
         dom.character.birthInfo.innerHTML = birthInfo.map(info =>
             `<div class="info-row">
@@ -364,18 +330,20 @@ export function renderCharacterProfile(age = state.currentAge) {
         ).join('');
     }
 
-    // MAGIC INFO
+    // 3. MAGIC INFO (커스텀 가능)
+    if (cardTitles[2]) cardTitles[2].textContent = labels.magicInfo;
     if (dom.character.magicInfo) {
         const themeColor = profile.themeColorAccent || profile.themeColor;
         const moodSong = profile.magic.moodSong;
         const moodSongValue = moodSong.url
             ? `<a href="${moodSong.url}" target="_blank" rel="noopener noreferrer" class="mood-song-link">${moodSong.title} (${moodSong.artist})</a>`
             : `${moodSong.title} (${moodSong.artist})`;
+            
         const magicInfo = [
-            { label: '지팡이', value: `${common.wand.wood} / ${common.wand.core}` },
-            { label: '길이 / 유연성', value: `${common.wand.length} / ${common.wand.flexibility}` },
-            { label: '테마색', value: themeColor, color: themeColor },
-            { label: '무드곡', value: moodSongValue, muted: true }
+            { label: labels.wand, value: `${common.wand.wood} / ${common.wand.core}` },
+            { label: labels.wandLength, value: `${common.wand.length} / ${common.wand.flexibility}` },
+            { label: labels.themeColor, value: themeColor, color: themeColor },
+            { label: labels.moodSong, value: moodSongValue, muted: true }
         ];
         dom.character.magicInfo.innerHTML = magicInfo.map(info =>
             `<div class="info-row">
@@ -389,6 +357,9 @@ export function renderCharacterProfile(age = state.currentAge) {
     }
 
     // 관계
+    const relationshipsTitle = document.querySelector('.relationships-section .section-title');
+    if (relationshipsTitle) relationshipsTitle.textContent = labels.relationships;
+
     if (dom.character.relationships) {
         if (profile.relationships?.length > 0) {
             dom.character.relationships.classList.toggle('single-row', profile.relationships.length <= 3);
@@ -447,7 +418,6 @@ export function renderOwnerProfile() {
         ).join('');
     }
 
-    // 그리드들
     const grids = [
         { id: 'owner-interests-grid', data: owner.ownerInfo },
         { id: 'owner-communication', data: owner.communication },
@@ -468,7 +438,6 @@ export function renderOwnerProfile() {
         }
     });
 
-    // 링크
     const linksContainer = document.getElementById('owner-links');
     if (linksContainer) {
         linksContainer.innerHTML = owner.links.map(link =>
