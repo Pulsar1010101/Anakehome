@@ -5,7 +5,8 @@
 import { playlistData } from '../data/playlist.js';
 import { config } from '../data/config.js';
 import { state, getDOM, refreshDOM } from './store.js';
-import { showLoading, debounce, renderIcons, safeFetch, showError } from './utils.js';
+// [수정] applyThemeSettings 추가 import
+import { showLoading, debounce, renderIcons, safeFetch, showError, applyThemeSettings } from './utils.js';
 import { renderPlaylist, updateSearchResultCount, renderCharacterProfile, renderOwnerProfile, renderMotifPage, renderAgeTabs } from './renderer.js';
 import { 
     loadYouTubeAPI, 
@@ -331,6 +332,9 @@ function setupMenuListeners() {
 // ============================================================
 
 export async function initApp() {
+    // [NEW] 앱 시작 시 테마 설정 적용 (가장 먼저 실행)
+    applyThemeSettings();
+
     // YouTube API 로드
     loadYouTubeAPI();
     setupYouTubeReady();
